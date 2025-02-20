@@ -13,14 +13,16 @@ import entidades.Paciente;
  *
  * @author alega
  */
-public class CitaMapper {
+public class Mapper {
     
-    public Cita toentity (CitaDTO citaDTO) {
+    // Convertir de DTO a Entidad (CitaDTO -> Cita)
+    public static Cita toEntity (CitaDTO citaDTO) {
         if (citaDTO == null) {
             return null;
         }
         
         Cita cita = new Cita();
+        cita.setId_cita(citaDTO.getId_cita());
         cita.setFecha_hora(citaDTO.getFecha_hora());
         cita.setEstado(citaDTO.getEstado());
         cita.setFolio(citaDTO.getFolio());
@@ -35,6 +37,23 @@ public class CitaMapper {
 
         return cita;
         
+    }
+    
+    // Convertir de Entidad a DTO (Cita -> citaDTO)
+    public static CitaDTO toDTO (Cita cita) {
+        if (cita == null) {
+            return null;
+        }
+        
+        CitaDTO citaDTO = new CitaDTO();
+        citaDTO.setId_cita(cita.getId_cita());
+        citaDTO.setFecha_hora(cita.getFecha_hora());
+        citaDTO.setEstado(cita.getEstado());
+        citaDTO.setFolio(cita.getFolio());
+        citaDTO.setId_medico(cita.getMedico().getId_medico());
+        citaDTO.setId_paciente(cita.getPaciente().getId_paciente());
+        
+        return citaDTO;
     }
     
 }
