@@ -15,6 +15,7 @@ BEGIN
     DECLARE fecha_fin_cita DATETIME;
     DECLARE dia_semana INT;
     DECLARE dia_semana_esp VARCHAR(10);
+    DECLARE estado_medico VARCHAR(10);
 
     START TRANSACTION;
 
@@ -34,6 +35,16 @@ BEGIN
         WHEN 6 THEN SET dia_semana_esp = 'viernes';
         WHEN 7 THEN SET dia_semana_esp = 'sabado';
     END CASE;
+
+    -- Validar que el médico esté activo
+    SELECT estado INTO estado_medico
+    FROM medicos
+    WHERE id_medico = id_medico_cita;
+
+    IF estado_medico = 'inactivo' THEN
+        ROLLBACK;
+        SIGNAL sqlstate '45000' SET message_text = 'El médico no está activo y no se pueden agendar citas (se fue de vacaciones jeje).';
+    END IF;
 
     -- Validar que el médico tenga un horario de atención ese día y la cita esté dentro de ese rango
     SELECT COUNT(*) INTO horario_valido
