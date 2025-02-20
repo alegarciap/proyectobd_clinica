@@ -39,7 +39,7 @@ BEGIN
     SELECT COUNT(*) INTO horario_valido
     FROM horarios_atencion
     WHERE id_medico = id_medico_cita
-    AND dia = dia_semana_texto
+    AND dia = dia_semana_esp
     AND TIME(fecha_hora_cita) >= hora_entrada
     AND TIME(fecha_fin_cita) <= hora_salida;
 
