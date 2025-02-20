@@ -26,7 +26,7 @@ public class CitaDAO implements ICitaDAO {
     }
 
     @Override
-    public boolean agendarCita(Cita cita) throws PersistenciaException {
+    public void agendarCita(Cita cita) throws PersistenciaException {
         
         String comandoSQL = "call agendar_cita(?,?,?);";
         
@@ -36,8 +36,7 @@ public class CitaDAO implements ICitaDAO {
             cb.setInt(2, cita.getPaciente().getId_paciente());
             cb.setInt(3, cita.getMedico().getId_medico());
             
-            cb.execute();
-            return true;
+            cb.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(CitaDAO.class.getName()).log(Level.SEVERE, null, ex);
             throw new PersistenciaException("Error: No se pudo agendar la cita.", ex);
@@ -45,15 +44,14 @@ public class CitaDAO implements ICitaDAO {
     }
 
     @Override
-    public boolean agendarCitaEmergencia(Cita cita) throws PersistenciaException {
+    public void agendarCitaEmergencia(Cita cita) throws PersistenciaException {
         String comandoSQL = "call agendar_cita_emergencia(?);";
         
         try (Connection con = this.conexion.crearConexion();
                 CallableStatement cb = con.prepareCall(comandoSQL)) {
             cb.setInt(1, cita.getPaciente().getId_paciente());
             
-            cb.execute();
-            return true;
+            cb.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(CitaDAO.class.getName()).log(Level.SEVERE, null, ex);
             throw new PersistenciaException("Error: No se pudo agendar la cita de emergencia.", ex);

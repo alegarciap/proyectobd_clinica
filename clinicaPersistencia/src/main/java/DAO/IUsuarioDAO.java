@@ -4,17 +4,17 @@
  */
 package DAO;
 
-import entidades.Cita;
+import entidades.Usuario;
 import excepciones.PersistenciaException;
 
 /**
  *
  * @author alega
  */
-public interface ICitaDAO {
+public interface IUsuarioDAO {
     
-    public void agendarCita(Cita cita) throws PersistenciaException;
+    public Usuario iniciarSesion(Usuario usuario) throws PersistenciaException;
     
-    public void agendarCitaEmergencia(Cita cita) throws PersistenciaException;
+    
     
 }
