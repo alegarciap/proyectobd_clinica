@@ -26,10 +26,10 @@ public class MenuMedico extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btnConfirmar = new javax.swing.JButton();
-        btnConfirmar1 = new javax.swing.JButton();
-        btnConfirmar2 = new javax.swing.JButton();
-        btnConfirmar3 = new javax.swing.JButton();
+        btnActualizarEstado = new javax.swing.JButton();
+        btnMiPerfil = new javax.swing.JButton();
+        btnConsultarAgenda = new javax.swing.JButton();
+        btnHistorialDeConsultas = new javax.swing.JButton();
         btnConfirmar4 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -37,43 +37,43 @@ public class MenuMedico extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        btnConfirmar.setBackground(new java.awt.Color(255, 0, 51));
-        btnConfirmar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnConfirmar.setForeground(new java.awt.Color(255, 255, 255));
-        btnConfirmar.setText("Estado");
-        btnConfirmar.addActionListener(new java.awt.event.ActionListener() {
+        btnActualizarEstado.setBackground(new java.awt.Color(255, 0, 51));
+        btnActualizarEstado.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnActualizarEstado.setForeground(new java.awt.Color(255, 255, 255));
+        btnActualizarEstado.setText("Actualizar Estado");
+        btnActualizarEstado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnConfirmarActionPerformed(evt);
+                btnActualizarEstadoActionPerformed(evt);
             }
         });
 
-        btnConfirmar1.setBackground(new java.awt.Color(255, 0, 51));
-        btnConfirmar1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnConfirmar1.setForeground(new java.awt.Color(255, 255, 255));
-        btnConfirmar1.setText("Perfil");
-        btnConfirmar1.addActionListener(new java.awt.event.ActionListener() {
+        btnMiPerfil.setBackground(new java.awt.Color(255, 0, 51));
+        btnMiPerfil.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnMiPerfil.setForeground(new java.awt.Color(255, 255, 255));
+        btnMiPerfil.setText("Mi perfil");
+        btnMiPerfil.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnConfirmar1ActionPerformed(evt);
+                btnMiPerfilActionPerformed(evt);
             }
         });
 
-        btnConfirmar2.setBackground(new java.awt.Color(255, 0, 51));
-        btnConfirmar2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnConfirmar2.setForeground(new java.awt.Color(255, 255, 255));
-        btnConfirmar2.setText("Agenda");
-        btnConfirmar2.addActionListener(new java.awt.event.ActionListener() {
+        btnConsultarAgenda.setBackground(new java.awt.Color(255, 0, 51));
+        btnConsultarAgenda.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnConsultarAgenda.setForeground(new java.awt.Color(255, 255, 255));
+        btnConsultarAgenda.setText("Consultar agenda");
+        btnConsultarAgenda.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnConfirmar2ActionPerformed(evt);
+                btnConsultarAgendaActionPerformed(evt);
             }
         });
 
-        btnConfirmar3.setBackground(new java.awt.Color(255, 0, 51));
-        btnConfirmar3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnConfirmar3.setForeground(new java.awt.Color(255, 255, 255));
-        btnConfirmar3.setText("Consultas");
-        btnConfirmar3.addActionListener(new java.awt.event.ActionListener() {
+        btnHistorialDeConsultas.setBackground(new java.awt.Color(255, 0, 51));
+        btnHistorialDeConsultas.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnHistorialDeConsultas.setForeground(new java.awt.Color(255, 255, 255));
+        btnHistorialDeConsultas.setText("Historial de consultas");
+        btnHistorialDeConsultas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnConfirmar3ActionPerformed(evt);
+                btnHistorialDeConsultasActionPerformed(evt);
             }
         });
 
@@ -99,29 +99,24 @@ public class MenuMedico extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap(44, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btnConfirmar1, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE)
-                            .addComponent(btnConfirmar3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(157, 157, 157)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnConfirmar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnConfirmar2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(257, 257, 257))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(btnConfirmar4)
-                        .addGap(720, 720, 720))))
+                .addComponent(btnConfirmar4)
+                .addGap(720, 720, 720))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(356, 356, 356)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(24, 24, 24)
                         .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 18, 18)
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(356, 356, 356)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(btnHistorialDeConsultas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnConsultarAgenda, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnActualizarEstado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnMiPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel1))))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -133,15 +128,15 @@ public class MenuMedico extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(88, 88, 88)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnConfirmar)
-                    .addComponent(btnConfirmar1))
-                .addGap(85, 85, 85)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnConfirmar2)
-                    .addComponent(btnConfirmar3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
+                .addGap(3, 3, 3)
+                .addComponent(btnMiPerfil)
+                .addGap(18, 18, 18)
+                .addComponent(btnActualizarEstado)
+                .addGap(18, 18, 18)
+                .addComponent(btnHistorialDeConsultas)
+                .addGap(18, 18, 18)
+                .addComponent(btnConsultarAgenda)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 104, Short.MAX_VALUE)
                 .addComponent(btnConfirmar4)
                 .addGap(23, 23, 23))
         );
@@ -149,21 +144,21 @@ public class MenuMedico extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
+    private void btnActualizarEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarEstadoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnConfirmarActionPerformed
+    }//GEN-LAST:event_btnActualizarEstadoActionPerformed
 
-    private void btnConfirmar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmar1ActionPerformed
+    private void btnMiPerfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMiPerfilActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnConfirmar1ActionPerformed
+    }//GEN-LAST:event_btnMiPerfilActionPerformed
 
-    private void btnConfirmar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmar2ActionPerformed
+    private void btnConsultarAgendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarAgendaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnConfirmar2ActionPerformed
+    }//GEN-LAST:event_btnConsultarAgendaActionPerformed
 
-    private void btnConfirmar3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmar3ActionPerformed
+    private void btnHistorialDeConsultasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHistorialDeConsultasActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnConfirmar3ActionPerformed
+    }//GEN-LAST:event_btnHistorialDeConsultasActionPerformed
 
     private void btnConfirmar4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmar4ActionPerformed
         // TODO add your handling code here:
@@ -205,11 +200,11 @@ public class MenuMedico extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnConfirmar;
-    private javax.swing.JButton btnConfirmar1;
-    private javax.swing.JButton btnConfirmar2;
-    private javax.swing.JButton btnConfirmar3;
+    private javax.swing.JButton btnActualizarEstado;
     private javax.swing.JButton btnConfirmar4;
+    private javax.swing.JButton btnConsultarAgenda;
+    private javax.swing.JButton btnHistorialDeConsultas;
+    private javax.swing.JButton btnMiPerfil;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JTextField jTextField1;

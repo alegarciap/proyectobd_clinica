@@ -34,6 +34,9 @@ public class MenuPaciente extends javax.swing.JFrame {
         jTextField3 = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        btnAgendarCita = new javax.swing.JButton();
+        btnEliminarCita = new javax.swing.JButton();
+        btnCitaEmergencia = new javax.swing.JButton();
 
         btnConfirmar4.setBackground(new java.awt.Color(255, 0, 51));
         btnConfirmar4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -99,49 +102,77 @@ public class MenuPaciente extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel2.setText("Usuario:");
 
+        btnAgendarCita.setBackground(new java.awt.Color(255, 0, 0));
+        btnAgendarCita.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnAgendarCita.setForeground(new java.awt.Color(255, 255, 255));
+        btnAgendarCita.setText("Agendar cita");
+        btnAgendarCita.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgendarCitaActionPerformed(evt);
+            }
+        });
+
+        btnEliminarCita.setBackground(new java.awt.Color(255, 0, 0));
+        btnEliminarCita.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnEliminarCita.setForeground(new java.awt.Color(255, 255, 255));
+        btnEliminarCita.setText("Eliminar cita");
+
+        btnCitaEmergencia.setBackground(new java.awt.Color(255, 0, 0));
+        btnCitaEmergencia.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnCitaEmergencia.setForeground(new java.awt.Color(255, 255, 255));
+        btnCitaEmergencia.setText("Cita de emergencia");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(241, 241, 241)
-                .addComponent(btnPerfil, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)
-                .addGap(254, 254, 254)
-                .addComponent(btnMisCitas)
-                .addGap(256, 256, 256))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(32, 32, 32)
                         .addComponent(btnCerrarSesion))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(352, 352, 352)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(btnHistorialConsultas, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(24, 24, 24)
                         .addComponent(jLabel2)
                         .addGap(18, 18, 18)
-                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(97, 97, 97)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnCitaEmergencia, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(btnEliminarCita, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnMisCitas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnPerfil, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnHistorialConsultas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnAgendarCita, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                .addContainerGap(393, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(16, 16, 16)
                 .addComponent(jLabel1)
-                .addGap(21, 21, 21)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
-                .addGap(101, 101, 101)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnPerfil)
-                    .addComponent(btnMisCitas))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(42, 42, 42)
+                        .addComponent(btnPerfil)))
+                .addGap(18, 18, 18)
+                .addComponent(btnMisCitas)
+                .addGap(18, 18, 18)
                 .addComponent(btnHistorialConsultas)
-                .addGap(64, 64, 64)
+                .addGap(18, 18, 18)
+                .addComponent(btnAgendarCita)
+                .addGap(18, 18, 18)
+                .addComponent(btnEliminarCita)
+                .addGap(18, 18, 18)
+                .addComponent(btnCitaEmergencia)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
                 .addComponent(btnCerrarSesion)
                 .addGap(20, 20, 20))
         );
@@ -172,6 +203,10 @@ public class MenuPaciente extends javax.swing.JFrame {
     private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField3ActionPerformed
+
+    private void btnAgendarCitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgendarCitaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAgendarCitaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -209,8 +244,11 @@ public class MenuPaciente extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAgendarCita;
     private javax.swing.JButton btnCerrarSesion;
+    private javax.swing.JButton btnCitaEmergencia;
     private javax.swing.JButton btnConfirmar4;
+    private javax.swing.JButton btnEliminarCita;
     private javax.swing.JButton btnHistorialConsultas;
     private javax.swing.JButton btnMisCitas;
     private javax.swing.JButton btnPerfil;
