@@ -26,8 +26,7 @@ public class CitaDAO implements ICitaDAO {
     }
 
     @Override
-    public void agendarCita(Cita cita) throws PersistenciaException {
-        
+    public void agendarCita(Cita cita) throws PersistenciaException {      
         String comandoSQL = "call agendar_cita(?,?,?);";
         
         try (Connection con = this.conexion.crearConexion();

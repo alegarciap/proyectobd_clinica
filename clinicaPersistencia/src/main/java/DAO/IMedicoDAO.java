@@ -4,10 +4,16 @@
  */
 package DAO;
 
+import entidades.Medico;
+import excepciones.PersistenciaException;
+import java.sql.SQLException;
+
 /**
  *
  * @author Abraham Coronel
  */
 public interface IMedicoDAO {
+    
+    
     
 }

@@ -99,9 +99,17 @@ public class Medico {
         this.estado = estado;
     }
 
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
     @Override
     public String toString() {
-        return "Medico{" + "id_medico=" + id_medico + ", nombre=" + nombre + ", apellido_paterno=" + apellido_paterno + ", apellido_materno=" + apellido_materno + ", cedula=" + cedula + ", especialidad=" + especialidad + ", estado=" + estado + '}';
+        return "Medico{" + "id_medico=" + id_medico + ", nombre=" + nombre + ", apellido_paterno=" + apellido_paterno + ", apellido_materno=" + apellido_materno + ", cedula=" + cedula + ", especialidad=" + especialidad + ", estado=" + estado + ", usuario=" + usuario + '}';
     }
     
 }
