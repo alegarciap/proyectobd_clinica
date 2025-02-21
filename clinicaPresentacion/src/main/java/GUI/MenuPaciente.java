@@ -27,12 +27,13 @@ public class MenuPaciente extends javax.swing.JFrame {
     private void initComponents() {
 
         btnConfirmar4 = new javax.swing.JButton();
-        btnConfirmar1 = new javax.swing.JButton();
-        btnConfirmar2 = new javax.swing.JButton();
-        btnConfirmar3 = new javax.swing.JButton();
-        btnConfirmar5 = new javax.swing.JButton();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField1 = new javax.swing.JTextField();
+        btnPerfil = new javax.swing.JButton();
+        btnHistorialConsultas = new javax.swing.JButton();
+        btnMisCitas = new javax.swing.JButton();
+        btnCerrarSesion = new javax.swing.JButton();
+        jTextField3 = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
         btnConfirmar4.setBackground(new java.awt.Color(255, 0, 51));
         btnConfirmar4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -46,59 +47,57 @@ public class MenuPaciente extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        btnConfirmar1.setBackground(new java.awt.Color(255, 0, 51));
-        btnConfirmar1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnConfirmar1.setForeground(new java.awt.Color(255, 255, 255));
-        btnConfirmar1.setText("Perfil");
-        btnConfirmar1.addActionListener(new java.awt.event.ActionListener() {
+        btnPerfil.setBackground(new java.awt.Color(255, 0, 51));
+        btnPerfil.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnPerfil.setForeground(new java.awt.Color(255, 255, 255));
+        btnPerfil.setText("Perfil");
+        btnPerfil.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnConfirmar1ActionPerformed(evt);
+                btnPerfilActionPerformed(evt);
             }
         });
 
-        btnConfirmar2.setBackground(new java.awt.Color(255, 0, 51));
-        btnConfirmar2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnConfirmar2.setForeground(new java.awt.Color(255, 255, 255));
-        btnConfirmar2.setText("Historial de consultas");
-        btnConfirmar2.addActionListener(new java.awt.event.ActionListener() {
+        btnHistorialConsultas.setBackground(new java.awt.Color(255, 0, 51));
+        btnHistorialConsultas.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnHistorialConsultas.setForeground(new java.awt.Color(255, 255, 255));
+        btnHistorialConsultas.setText("Historial de consultas");
+        btnHistorialConsultas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnConfirmar2ActionPerformed(evt);
+                btnHistorialConsultasActionPerformed(evt);
             }
         });
 
-        btnConfirmar3.setBackground(new java.awt.Color(255, 0, 51));
-        btnConfirmar3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnConfirmar3.setForeground(new java.awt.Color(255, 255, 255));
-        btnConfirmar3.setText("Mis citas");
-        btnConfirmar3.addActionListener(new java.awt.event.ActionListener() {
+        btnMisCitas.setBackground(new java.awt.Color(255, 0, 51));
+        btnMisCitas.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnMisCitas.setForeground(new java.awt.Color(255, 255, 255));
+        btnMisCitas.setText("Mis citas");
+        btnMisCitas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnConfirmar3ActionPerformed(evt);
+                btnMisCitasActionPerformed(evt);
             }
         });
 
-        btnConfirmar5.setBackground(new java.awt.Color(255, 0, 51));
-        btnConfirmar5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnConfirmar5.setForeground(new java.awt.Color(255, 255, 255));
-        btnConfirmar5.setText("Cerrar Sesion");
-        btnConfirmar5.addActionListener(new java.awt.event.ActionListener() {
+        btnCerrarSesion.setBackground(new java.awt.Color(255, 0, 51));
+        btnCerrarSesion.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnCerrarSesion.setForeground(new java.awt.Color(255, 255, 255));
+        btnCerrarSesion.setText("Cerrar Sesion");
+        btnCerrarSesion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnConfirmar5ActionPerformed(evt);
+                btnCerrarSesionActionPerformed(evt);
             }
         });
 
-        jTextField2.setText("Clinica BD");
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+        jTextField3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
+                jTextField3ActionPerformed(evt);
             }
         });
 
-        jTextField1.setText("Usuario:");
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
-            }
-        });
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        jLabel1.setText("Clinica BD");
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel2.setText("Usuario:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -106,73 +105,73 @@ public class MenuPaciente extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(241, 241, 241)
-                .addComponent(btnConfirmar1, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)
+                .addComponent(btnPerfil, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)
                 .addGap(254, 254, 254)
-                .addComponent(btnConfirmar3)
+                .addComponent(btnMisCitas)
                 .addGap(256, 256, 256))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(352, 352, 352)
-                        .addComponent(btnConfirmar2, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(421, 421, 421)
-                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(32, 32, 32)
+                        .addComponent(btnCerrarSesion))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(352, 352, 352)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnConfirmar5))))
+                            .addComponent(jLabel1)
+                            .addComponent(btnHistorialConsultas, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(24, 24, 24)
+                        .addComponent(jLabel2)
+                        .addGap(18, 18, 18)
+                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(16, 16, 16)
+                .addComponent(jLabel1)
                 .addGap(21, 21, 21)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(82, 82, 82)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnConfirmar1)
-                    .addComponent(btnConfirmar3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 79, Short.MAX_VALUE)
-                .addComponent(btnConfirmar2)
+                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
+                .addGap(101, 101, 101)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnPerfil)
+                    .addComponent(btnMisCitas))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
+                .addComponent(btnHistorialConsultas)
                 .addGap(64, 64, 64)
-                .addComponent(btnConfirmar5)
+                .addComponent(btnCerrarSesion)
                 .addGap(20, 20, 20))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnConfirmar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmar1ActionPerformed
+    private void btnPerfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPerfilActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnConfirmar1ActionPerformed
+    }//GEN-LAST:event_btnPerfilActionPerformed
 
-    private void btnConfirmar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmar2ActionPerformed
+    private void btnHistorialConsultasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHistorialConsultasActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnConfirmar2ActionPerformed
+    }//GEN-LAST:event_btnHistorialConsultasActionPerformed
 
-    private void btnConfirmar3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmar3ActionPerformed
+    private void btnMisCitasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMisCitasActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnConfirmar3ActionPerformed
+    }//GEN-LAST:event_btnMisCitasActionPerformed
 
     private void btnConfirmar4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmar4ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnConfirmar4ActionPerformed
 
-    private void btnConfirmar5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmar5ActionPerformed
+    private void btnCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesionActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnConfirmar5ActionPerformed
+    }//GEN-LAST:event_btnCerrarSesionActionPerformed
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
-
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_jTextField3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -210,12 +209,13 @@ public class MenuPaciente extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnConfirmar1;
-    private javax.swing.JButton btnConfirmar2;
-    private javax.swing.JButton btnConfirmar3;
+    private javax.swing.JButton btnCerrarSesion;
     private javax.swing.JButton btnConfirmar4;
-    private javax.swing.JButton btnConfirmar5;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JButton btnHistorialConsultas;
+    private javax.swing.JButton btnMisCitas;
+    private javax.swing.JButton btnPerfil;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JTextField jTextField3;
     // End of variables declaration//GEN-END:variables
 }
