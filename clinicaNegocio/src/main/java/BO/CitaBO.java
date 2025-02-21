@@ -33,7 +33,7 @@ public class CitaBO {
         }
         
         // validaciones necesarias
-
+        
         // ahora si intentar agendar la cita
         try {
             citaDAO.agendarCita(Mapper.toEntity(citaDTO));
@@ -58,6 +58,5 @@ public class CitaBO {
             throw new NegocioException("Hubo un error al agendar la cita de emergencia.", ex);
         }
     }
-
     
 }

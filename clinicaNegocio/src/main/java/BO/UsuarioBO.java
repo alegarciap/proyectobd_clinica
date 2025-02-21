@@ -6,7 +6,10 @@ package BO;
 
 import DAO.IUsuarioDAO;
 import DAO.UsuarioDAO;
+import DTO.UsuarioDTO;
 import conexion.IConexion;
+import entidades.Usuario;
+import excepciones.PersistenciaException;
 import java.util.logging.Logger;
 
 /**
@@ -21,5 +24,14 @@ public class UsuarioBO {
     public UsuarioBO(IConexion conexion) {
         this.usuarioDAO = new UsuarioDAO(conexion);
     }
+    
+//    public UsuarioDTO autenticarUsuario(String nombre_usuario, String contrasenia) throws PersistenciaException {
+//        // validaciones necesarias
+//        
+//        try {
+//            Usuario usuario = usuarioDAO.autenticarUsuario(nombre_usuario, contrasenia);
+//        } 
+//    }
+    
     
 }
