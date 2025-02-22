@@ -5,6 +5,7 @@
 package mapper;
 
 import DTO.CitaDTO;
+import DTO.MedicoDTO;
 import DTO.PacienteDTO;
 import DTO.UsuarioDTO;
 import entidades.Cita;
@@ -30,12 +31,10 @@ public class Mapper {
         cita.setEstado(citaDTO.getEstado());
         cita.setFolio(citaDTO.getFolio());
         
-        Paciente paciente = new Paciente();
-        paciente.setId_paciente(citaDTO.getId_paciente());
+        Paciente paciente = toEntity(citaDTO.getPaciente());      
         cita.setPaciente(paciente);
 
-        Medico medico = new Medico();
-        medico.setId_medico(citaDTO.getId_medico());
+        Medico medico = toEntity(citaDTO.getMedico());
         cita.setMedico(medico);
 
         return cita;
@@ -53,8 +52,12 @@ public class Mapper {
         citaDTO.setFecha_hora(cita.getFecha_hora());
         citaDTO.setEstado(cita.getEstado());
         citaDTO.setFolio(cita.getFolio());
-        citaDTO.setId_medico(cita.getMedico().getId_medico());
-        citaDTO.setId_paciente(cita.getPaciente().getId_paciente());
+        
+        MedicoDTO medico = toDTO(cita.getMedico());
+        citaDTO.setMedico(medico);
+        
+        PacienteDTO paciente = toDTO(cita.getPaciente());
+        citaDTO.setPaciente(paciente);
         
         return citaDTO;
     }
@@ -75,10 +78,7 @@ public class Mapper {
         paciente.setTelefono(pacienteDTO.getTelefono());
         paciente.setCorreo(pacienteDTO.getCorreo());
         
-        Usuario usuario = new Usuario();
-        usuario.setId_usuario(pacienteDTO.getId_usuario());
-        usuario.setNombre(pacienteDTO.getNombre_usuario());
-        usuario.setContrasenia(pacienteDTO.getContrasenia_usuario());
+        Usuario usuario = toEntity(pacienteDTO.getUsuario());
         paciente.setUsuario(usuario);
         
         return paciente;
@@ -99,11 +99,81 @@ public class Mapper {
         pacienteDTO.setFecha_nacimiento(paciente.getFecha_nacimiento());
         pacienteDTO.setTelefono(paciente.getTelefono());
         pacienteDTO.setCorreo(paciente.getCorreo());
-        pacienteDTO.setId_usuario(paciente.getUsuario().getId_usuario());
-        pacienteDTO.setNombre_usuario(paciente.getUsuario().getNombre());
-        pacienteDTO.setContrasenia_usuario(paciente.getUsuario().getContrasenia());
+        
+        UsuarioDTO usuario = toDTO(paciente.getUsuario());
+        pacienteDTO.setUsuario(usuario);
         
         return pacienteDTO;
+    }
+    
+    // Convertir de DTO a Entidad (UsuarioDTO -> Usuario)
+    public static Usuario toEntity(UsuarioDTO usuarioDTO) {
+        if (usuarioDTO == null) {
+            return null;
+        }
+        
+        Usuario usuario = new Usuario();
+        usuario.setId_usuario(usuarioDTO.getId_usuario());
+        usuario.setNombre(usuarioDTO.getNombre());
+        usuario.setContrasenia(usuarioDTO.getContrasenia());
+        
+        return usuario;
+    }
+    
+    // Convertir de Entidad a DTO (Usuario -> UsuarioDTO)
+    public static UsuarioDTO toDTO (Usuario usuario) {
+        if (usuario == null) {
+            return null;
+        }
+        
+        UsuarioDTO usuarioDTO = new UsuarioDTO();
+        usuarioDTO.setId_usuario(usuario.getId_usuario());
+        usuarioDTO.setNombre(usuario.getNombre());
+        usuarioDTO.setContrasenia(usuario.getContrasenia());
+        
+        return usuarioDTO;
+    }
+    
+    // Convertir de DTO a Entidad (MedicoDTO -> Medico)
+    public static Medico toEntity(MedicoDTO medicoDTO) {
+        if (medicoDTO == null) {
+            return null;
+        }
+        
+        Medico medico = new Medico();
+        medico.setId_medico(medicoDTO.getId_medico());
+        medico.setNombre(medicoDTO.getNombre());
+        medico.setApellido_paterno(medicoDTO.getApellido_paterno());
+        medico.setApellido_materno(medicoDTO.getApellido_materno());
+        medico.setCedula(medicoDTO.getCedula());
+        medico.setEspecialidad(medicoDTO.getEspecialidad());
+        medico.setEstado(medicoDTO.getEstado());
+        
+        Usuario usuario = toEntity(medicoDTO.getUsuario());
+        medico.setUsuario(usuario);
+        
+        return medico;
+    }
+    
+    // Convertir de Entidad a DTO (Medico -> MedicoDTO)
+    public static MedicoDTO toDTO (Medico medico) {
+        if (medico == null) {
+            return null;
+        }
+        
+        MedicoDTO medicoDTO = new MedicoDTO();
+        medicoDTO.setId_medico(medico.getId_medico());
+        medicoDTO.setNombre(medico.getNombre());
+        medicoDTO.setApellido_paterno(medico.getApellido_paterno());
+        medicoDTO.setApellido_materno(medico.getApellido_materno());
+        medicoDTO.setCedula(medico.getCedula());
+        medicoDTO.setEspecialidad(medico.getEspecialidad());
+        medicoDTO.setEstado(medico.getEstado());
+        
+        UsuarioDTO usuario = toDTO(medico.getUsuario());
+        medicoDTO.setUsuario(usuario);
+        
+        return medicoDTO;
     }
     
 }

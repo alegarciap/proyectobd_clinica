@@ -16,27 +16,27 @@ public class CitaDTO {
     private Timestamp fecha_hora;
     private String estado;
     private String folio;
-    private int id_medico;
-    private int id_paciente;
+    private PacienteDTO paciente;
+    private MedicoDTO medico;
 
     public CitaDTO() {
     }
 
-    public CitaDTO(int id_cita, Timestamp fecha_hora, String estado, String folio, int id_medico, int id_paciente) {
+    public CitaDTO(int id_cita, Timestamp fecha_hora, String estado, String folio, PacienteDTO paciente, MedicoDTO medico) {
         this.id_cita = id_cita;
         this.fecha_hora = fecha_hora;
         this.estado = estado;
         this.folio = folio;
-        this.id_medico = id_medico;
-        this.id_paciente = id_paciente;
+        this.paciente = paciente;
+        this.medico = medico;
     }
 
-    public CitaDTO(Timestamp fecha_hora, String estado, String folio, int id_medico, int id_paciente) {
+    public CitaDTO(Timestamp fecha_hora, String estado, String folio, PacienteDTO paciente, MedicoDTO medico) {
         this.fecha_hora = fecha_hora;
         this.estado = estado;
         this.folio = folio;
-        this.id_medico = id_medico;
-        this.id_paciente = id_paciente;
+        this.paciente = paciente;
+        this.medico = medico;
     }
 
     public int getId_cita() {
@@ -71,25 +71,25 @@ public class CitaDTO {
         this.folio = folio;
     }
 
-    public int getId_medico() {
-        return id_medico;
+    public PacienteDTO getPaciente() {
+        return paciente;
     }
 
-    public void setId_medico(int id_medico) {
-        this.id_medico = id_medico;
+    public void setPaciente(PacienteDTO paciente) {
+        this.paciente = paciente;
     }
 
-    public int getId_paciente() {
-        return id_paciente;
+    public MedicoDTO getMedico() {
+        return medico;
     }
 
-    public void setId_paciente(int id_paciente) {
-        this.id_paciente = id_paciente;
+    public void setMedico(MedicoDTO medico) {
+        this.medico = medico;
     }
 
     @Override
     public String toString() {
-        return "CitaDTO{" + "id_cita=" + id_cita + ", fecha_hora=" + fecha_hora + ", estado=" + estado + ", folio=" + folio + ", id_medico=" + id_medico + ", id_paciente=" + id_paciente + '}';
+        return "CitaDTO{" + "id_cita=" + id_cita + ", fecha_hora=" + fecha_hora + ", estado=" + estado + ", folio=" + folio + ", paciente=" + paciente + ", medico=" + medico + '}';
     }
     
 }

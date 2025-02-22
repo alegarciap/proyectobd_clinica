@@ -4,7 +4,7 @@
  */
 package DTO;
 
-import java.sql.Date;
+import java.util.Date;
 
 /**
  *
@@ -20,14 +20,12 @@ public class PacienteDTO {
     private Date fecha_nacimiento;
     private String telefono;
     private String correo;
-    private int id_usuario;
-    private String nombre_usuario;
-    private String contrasenia_usuario;
+    private UsuarioDTO usuario;
 
     public PacienteDTO() {
     }
 
-    public PacienteDTO(int id_paciente, String nombre, String apellido_paterno, String apellido_materno, String direccion, Date fecha_nacimiento, String telefono, String correo, int id_usuario, String nombre_usuario, String contrasenia_usuario) {
+    public PacienteDTO(int id_paciente, String nombre, String apellido_paterno, String apellido_materno, String direccion, Date fecha_nacimiento, String telefono, String correo, UsuarioDTO usuario) {
         this.id_paciente = id_paciente;
         this.nombre = nombre;
         this.apellido_paterno = apellido_paterno;
@@ -36,12 +34,10 @@ public class PacienteDTO {
         this.fecha_nacimiento = fecha_nacimiento;
         this.telefono = telefono;
         this.correo = correo;
-        this.id_usuario = id_usuario;
-        this.nombre_usuario = nombre_usuario;
-        this.contrasenia_usuario = contrasenia_usuario;
+        this.usuario = usuario;
     }
 
-    public PacienteDTO(String nombre, String apellido_paterno, String apellido_materno, String direccion, Date fecha_nacimiento, String telefono, String correo, int id_usuario, String nombre_usuario, String contrasenia_usuario) {
+    public PacienteDTO(String nombre, String apellido_paterno, String apellido_materno, String direccion, Date fecha_nacimiento, String telefono, String correo, UsuarioDTO usuario) {
         this.nombre = nombre;
         this.apellido_paterno = apellido_paterno;
         this.apellido_materno = apellido_materno;
@@ -49,9 +45,7 @@ public class PacienteDTO {
         this.fecha_nacimiento = fecha_nacimiento;
         this.telefono = telefono;
         this.correo = correo;
-        this.id_usuario = id_usuario;
-        this.nombre_usuario = nombre_usuario;
-        this.contrasenia_usuario = contrasenia_usuario;
+        this.usuario = usuario;
     }
 
     public int getId_paciente() {
@@ -118,33 +112,17 @@ public class PacienteDTO {
         this.correo = correo;
     }
 
-    public int getId_usuario() {
-        return id_usuario;
+    public UsuarioDTO getUsuario() {
+        return usuario;
     }
 
-    public void setId_usuario(int id_usuario) {
-        this.id_usuario = id_usuario;
-    }
-
-    public String getNombre_usuario() {
-        return nombre_usuario;
-    }
-
-    public void setNombre_usuario(String nombre_usuario) {
-        this.nombre_usuario = nombre_usuario;
-    }
-
-    public String getContrasenia_usuario() {
-        return contrasenia_usuario;
-    }
-
-    public void setContrasenia_usuario(String contrasenia_usuario) {
-        this.contrasenia_usuario = contrasenia_usuario;
+    public void setUsuario(UsuarioDTO usuario) {
+        this.usuario = usuario;
     }
 
     @Override
     public String toString() {
-        return "PacienteDTO{" + "id_paciente=" + id_paciente + ", nombre=" + nombre + ", apellido_paterno=" + apellido_paterno + ", apellido_materno=" + apellido_materno + ", direccion=" + direccion + ", fecha_nacimiento=" + fecha_nacimiento + ", telefono=" + telefono + ", correo=" + correo + ", id_usuario=" + id_usuario + ", nombre_usuario=" + nombre_usuario + ", contrasenia_usuario=" + contrasenia_usuario + '}';
+        return "PacienteDTO{" + "id_paciente=" + id_paciente + ", nombre=" + nombre + ", apellido_paterno=" + apellido_paterno + ", apellido_materno=" + apellido_materno + ", direccion=" + direccion + ", fecha_nacimiento=" + fecha_nacimiento + ", telefono=" + telefono + ", correo=" + correo + ", usuario=" + usuario + '}';
     }
     
 }
