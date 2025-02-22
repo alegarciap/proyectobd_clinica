@@ -122,6 +122,81 @@ public class Prueba {
             System.err.println("Error al agendar la cita de emergencia: " + e.getMessage());
         }
         **/
+        
+        /**
+        // prueba actualizar paciente con un paciente que no tiene citas
+        try {
+            PacienteDTO pacienteDTO = new PacienteDTO();
+            pacienteDTO.setId_paciente(32);
+            pacienteDTO.setNombre("Carlos");
+            pacienteDTO.setApellido_paterno("Pérez");
+            pacienteDTO.setApellido_materno("Gómez");
+            pacienteDTO.setDireccion("Calle 456");
+            pacienteDTO.setTelefono("2015369874");
+            pacienteDTO.setCorreo("carlos.perez@gmail.com");
+
+            UsuarioDTO usuarioDTO = new UsuarioDTO();
+            usuarioDTO.setNombre("carlos_perez");
+            usuarioDTO.setContrasenia("nuevacontrasenia123");
+            pacienteDTO.setUsuario(usuarioDTO);
+            
+            PacienteBO pacienteBO = new PacienteBO(conexion);
+            
+            pacienteBO.actualizarPaciente(pacienteDTO);
+
+            System.out.println("Datos del paciente actualizados correctamente.");
+        } catch (NegocioException | PersistenciaException e) {
+            System.out.println("Error al actualizar los datos del paciente: " + e.getMessage());
+        }
+        **/
+        
+        /**
+        // prueba actualizar paciente con un paciente que si tiene citas
+        try {
+            PacienteDTO pacienteDTO = new PacienteDTO();
+            pacienteDTO.setId_paciente(6);
+            pacienteDTO.setNombre("Carlos");
+            pacienteDTO.setApellido_paterno("Pérez");
+            pacienteDTO.setApellido_materno("Gómez");
+            pacienteDTO.setDireccion("Calle 456");
+            pacienteDTO.setTelefono("2015369874");
+            pacienteDTO.setCorreo("carlos.perez2@gmail.com");
+
+            UsuarioDTO usuarioDTO = new UsuarioDTO();
+            usuarioDTO.setNombre("carlos_perez2");
+            usuarioDTO.setContrasenia("nuevacontrasenia1234");
+            pacienteDTO.setUsuario(usuarioDTO);
+            
+            PacienteBO pacienteBO = new PacienteBO(conexion);
+            
+            pacienteBO.actualizarPaciente(pacienteDTO);
+
+            System.out.println("Datos del paciente actualizados correctamente.");
+        } catch (NegocioException | PersistenciaException e) {
+            System.out.println("Error al actualizar los datos del paciente: " + e.getMessage());
+        }
+        **/
+        
+        /**
+        // prueba cancelar cita, se probaron todos los escenarios y si funciona correctamente
+        try {
+            PacienteDTO paciente = new PacienteDTO();
+            paciente.setId_paciente(7);
+            
+            CitaDTO cita = new CitaDTO();
+            cita.setId_cita(31);
+            cita.setPaciente(paciente);
+            
+            CitaBO citaBO = new CitaBO(conexion);
+            
+            citaBO.cancelarCita(cita);
+            System.out.println("Cita cancelada con éxito");
+        } catch (NegocioException | PersistenciaException e) {
+            System.out.println("Error al cancelar la cita: " + e.getMessage());
+        }
+        **/
+        
+        // prueba para
     }
     
 }

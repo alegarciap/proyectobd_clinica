@@ -59,4 +59,19 @@ public class CitaBO {
         }
     }
     
+    public void cancelarCita(CitaDTO citaDTO) throws PersistenciaException, NegocioException {
+        if (citaDTO == null) {
+            throw new PersistenciaException("La cita a cancelar no puede ser nula.");
+        }
+        
+        // validaciones necesarias
+        
+        try {
+            citaDAO.cancelarCita(Mapper.toEntity(citaDTO));
+        } catch (PersistenciaException ex) {
+            logger.log(Level.SEVERE, "Error al cancelar la cita.", ex);
+            throw new NegocioException("Hubo un error al cancelar la cita.", ex);
+        }
+    }
+    
 }
