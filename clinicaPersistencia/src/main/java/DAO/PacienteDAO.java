@@ -116,11 +116,10 @@ public class PacienteDAO implements IPacienteDAO {
         }
         return null; 
     }
-
-    // este todavía no funciona al cien
+    
     @Override
     public void actualizarPaciente(Paciente paciente) throws PersistenciaException {
-        String comandoSQL = "call actualizar_paciente(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String comandoSQL = "call actualizar_paciente(?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         // encriptar la nueva contraseña 
         String contraseniaEncriptada = null;
@@ -135,16 +134,15 @@ public class PacienteDAO implements IPacienteDAO {
             cb.setString(3, paciente.getApellido_paterno());
             cb.setString(4, paciente.getApellido_materno());
             cb.setString(5, paciente.getDireccion());
-            cb.setDate(6, (Date) paciente.getFecha_nacimiento());
-            cb.setString(7, paciente.getTelefono());
-            cb.setString(8, paciente.getCorreo());
-            cb.setString(9, paciente.getUsuario().getNombre()); 
-            cb.setString(10, contraseniaEncriptada);
+            cb.setString(6, paciente.getTelefono());
+            cb.setString(7, paciente.getCorreo());
+            cb.setString(8, paciente.getUsuario().getNombre()); 
+            cb.setString(9, contraseniaEncriptada);
             
             cb.executeUpdate();
         } catch (SQLException e) {
             Logger.getLogger(PacienteDAO.class.getName()).log(Level.SEVERE, null, e);
-            throw new PersistenciaException("Error al actualizar los datos del paciente", e);
+            throw new PersistenciaException("Error al actualizar los datos del paciente.", e);
         }
     }
     
