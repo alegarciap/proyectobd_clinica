@@ -56,5 +56,21 @@ public class CitaDAO implements ICitaDAO {
             throw new PersistenciaException("Error: No se pudo agendar la cita de emergencia.", ex);
         }
     }
+
+    @Override
+    public void cancelarCita(Cita cita) throws PersistenciaException {
+        String comandoSQL = "call cancelar_cita(?,?);";
+        
+        try (Connection con = this.conexion.crearConexion();
+                CallableStatement cb = con.prepareCall(comandoSQL)) {
+            cb.setInt(1, cita.getId_cita());
+            cb.setInt(2, cita.getPaciente().getId_paciente());
+            
+            cb.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(CitaDAO.class.getName()).log(Level.SEVERE, null, ex);
+            throw new PersistenciaException("Error: No se pudo cancelar la cita.", ex);
+        }
+    }
     
 }

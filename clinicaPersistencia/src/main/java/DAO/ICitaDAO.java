@@ -17,4 +17,6 @@ public interface ICitaDAO {
     
     public void agendarCitaEmergencia(Cita cita) throws PersistenciaException;
     
+    public void cancelarCita(Cita cita) throws PersistenciaException;
+    
 }
