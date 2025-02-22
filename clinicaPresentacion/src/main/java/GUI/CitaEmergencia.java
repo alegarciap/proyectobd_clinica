@@ -40,7 +40,7 @@ public class CitaEmergencia extends javax.swing.JFrame {
         jLabel1.setText("Clinica BD");
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel2.setText("Numero de folio:");
+        jLabel2.setText("Número de folio:");
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel3.setText("Doctor asignado:");

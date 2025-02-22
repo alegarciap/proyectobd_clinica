@@ -54,7 +54,7 @@ public class Registrarse extends javax.swing.JFrame {
         jLabel1.setText("Ingrese su nombre:");
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel2.setText("Ingrese su direccion: ");
+        jLabel2.setText("Ingrese su dirección: ");
 
         jTextField2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -66,10 +66,10 @@ public class Registrarse extends javax.swing.JFrame {
         jLabel3.setText("Ingrese su fecha de nacimiento: ");
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel4.setText("Ingrese su numero de telefono:");
+        jLabel4.setText("Ingrese su número de telefono:");
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel5.setText("Ingrese su correo electronico:");
+        jLabel5.setText("Ingrese su correo electrónico:");
 
         jTextField5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

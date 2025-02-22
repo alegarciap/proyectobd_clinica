@@ -64,7 +64,7 @@ public class PerfilPaciente extends javax.swing.JFrame {
         jLabel5.setText("Apellido materno");
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel6.setText("Direccion");
+        jLabel6.setText("Dirección");
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel7.setText("Fecha de nacimiento");
@@ -76,7 +76,7 @@ public class PerfilPaciente extends javax.swing.JFrame {
         });
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel8.setText("Correo electronico");
+        jLabel8.setText("Correo electrónico");
 
         jTextField6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

@@ -49,7 +49,7 @@ public class PerfilMedico extends javax.swing.JFrame {
         jLabel3.setText("Cedula profesional:");
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel4.setText("Horarios de atencion");
+        jLabel4.setText("Horarios de atención");
 
         jButton1.setBackground(new java.awt.Color(255, 0, 51));
         jButton1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N

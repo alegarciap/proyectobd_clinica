@@ -155,7 +155,7 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="14" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Ingrese su direccion: "/>
+        <Property name="text" type="java.lang.String" value="Ingrese su direcci&#xf3;n: "/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="jTextField2">
@@ -178,7 +178,7 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="14" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Ingrese su numero de telefono:"/>
+        <Property name="text" type="java.lang.String" value="Ingrese su n&#xfa;mero de telefono:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="jTextField4">
@@ -188,7 +188,7 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="14" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Ingrese su correo electronico:"/>
+        <Property name="text" type="java.lang.String" value="Ingrese su correo electr&#xf3;nico:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="jTextField5">
