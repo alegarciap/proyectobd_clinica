@@ -10,10 +10,14 @@ import java.sql.SQLException;
 
 /**
  *
- * @author Abraham Coronel
+ * @author alega
  */
 public interface IPacienteDAO {
     
     public void registrarPaciente(Paciente paciente) throws PersistenciaException;
+    
+    public Paciente obtenerPaciente(int id_usuario) throws SQLException, PersistenciaException;
+    
+    public void actualizarPaciente(Paciente paciente) throws PersistenciaException;
     
 }

@@ -16,24 +16,24 @@ public class HorariosAtencion {
     private String dia;
     private LocalTime hora_entrada;
     private LocalTime hora_salida;
-    private int id_medico;
+    private Medico medico;
 
     public HorariosAtencion() {
     }
 
-    public HorariosAtencion(int id_horario, String dia, LocalTime hora_entrada, LocalTime hora_salida, int id_medico) {
+    public HorariosAtencion(int id_horario, String dia, LocalTime hora_entrada, LocalTime hora_salida, Medico medico) {
         this.id_horario = id_horario;
         this.dia = dia;
         this.hora_entrada = hora_entrada;
         this.hora_salida = hora_salida;
-        this.id_medico = id_medico;
+        this.medico = medico;
     }
 
-    public HorariosAtencion(String dia, LocalTime hora_entrada, LocalTime hora_salida, int id_medico) {
+    public HorariosAtencion(String dia, LocalTime hora_entrada, LocalTime hora_salida, Medico medico) {
         this.dia = dia;
         this.hora_entrada = hora_entrada;
         this.hora_salida = hora_salida;
-        this.id_medico = id_medico;
+        this.medico = medico;
     }
 
     public int getId_horario() {
@@ -68,17 +68,17 @@ public class HorariosAtencion {
         this.hora_salida = hora_salida;
     }
 
-    public int getId_medico() {
-        return id_medico;
+    public Medico getMedico() {
+        return medico;
     }
 
-    public void setId_medico(int id_medico) {
-        this.id_medico = id_medico;
+    public void setMedico(Medico medico) {
+        this.medico = medico;
     }
 
     @Override
     public String toString() {
-        return "HorariosAtencion{" + "id_horario=" + id_horario + ", dia=" + dia + ", hora_entrada=" + hora_entrada + ", hora_salida=" + hora_salida + ", id_medico=" + id_medico + '}';
+        return "HorariosAtencion{" + "id_horario=" + id_horario + ", dia=" + dia + ", hora_entrada=" + hora_entrada + ", hora_salida=" + hora_salida + ", medico=" + medico + '}';
     }
     
 }

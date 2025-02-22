@@ -6,8 +6,6 @@ package DAO;
 
 import entidades.Usuario;
 import excepciones.PersistenciaException;
-import java.sql.Connection;
-import java.sql.SQLException;
 
 /**
  *
@@ -16,7 +14,5 @@ import java.sql.SQLException;
 public interface IUsuarioDAO {
     
     public Usuario autenticarUsuario(String nombre_usuario, String contrasenia) throws PersistenciaException;    
-    
-    
     
 }

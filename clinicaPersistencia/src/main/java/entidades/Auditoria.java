@@ -15,27 +15,27 @@ public class Auditoria {
     private int id_auditoria;
     private String accion;
     private LocalDateTime fecha_hora;
-    private int id_cita;
+    private Cita cita;
 
     public Auditoria() {
     }
 
-    public Auditoria(int id_auditoria, String accion, LocalDateTime fecha_hora, int id_cita) {
+    public Auditoria(int id_auditoria, String accion, LocalDateTime fecha_hora, Cita cita) {
         this.id_auditoria = id_auditoria;
         this.accion = accion;
         this.fecha_hora = fecha_hora;
-        this.id_cita = id_cita;
+        this.cita = cita;
     }
 
-    public Auditoria(String accion, LocalDateTime fecha_hora, int id_cita) {
+    public Auditoria(String accion, LocalDateTime fecha_hora, Cita cita) {
         this.accion = accion;
         this.fecha_hora = fecha_hora;
-        this.id_cita = id_cita;
+        this.cita = cita;
     }
 
     @Override
     public String toString() {
-        return "Auditoria{" + "id_auditoria=" + id_auditoria + ", accion=" + accion + ", fecha_hora=" + fecha_hora + ", id_cita=" + id_cita + '}';
+        return "Auditoria{" + "id_auditoria=" + id_auditoria + ", accion=" + accion + ", fecha_hora=" + fecha_hora + ", cita=" + cita + '}';
     }
     
 }

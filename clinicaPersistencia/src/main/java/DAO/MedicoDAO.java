@@ -6,6 +6,7 @@ package DAO;
 
 import conexion.IConexion;
 import entidades.Medico;
+import entidades.Usuario;
 import excepciones.PersistenciaException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -16,7 +17,7 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author Abraham Coronel
+ * @author alega
  */
 public class MedicoDAO implements IMedicoDAO {
     
@@ -26,22 +27,36 @@ public class MedicoDAO implements IMedicoDAO {
         this.conexion = conexion;
     }
     
+    @Override
     public Medico obtenerMedico(int id_usuario) throws SQLException, PersistenciaException {
-        String comandoSQL = "select * from medicos where id_medico = ?";
+        String comandoSQL = "select * from medicos m "
+                + "join usuarios u on m.id_medico = u.id_usuario "
+                + "where m.id_medico = ?"; 
+        
         try (Connection con = conexion.crearConexion(); 
                 PreparedStatement st = con.prepareStatement(comandoSQL)) {
             st.setInt(1, id_usuario);
-            ResultSet rs = st.executeQuery();
-            if (rs.next()) {
-                Medico medico = new Medico();
-                medico.setId_medico(rs.getInt("id_medico"));
-                medico.setNombre(rs.getString("nombre"));
-                medico.setApellido_paterno(rs.getString("apellido_paterno"));
-                medico.setApellido_materno(rs.getString("apellido_materno"));
-                medico.setCedula(rs.getString("cedula"));
-                medico.setEspecialidad(rs.getString("especialidad"));
-                medico.setEstado(rs.getString("estado"));
-                return medico;
+            
+            try (ResultSet rs = st.executeQuery()) {
+                if (rs.next()) {
+                    Medico medico = new Medico();
+                    medico.setId_medico(rs.getInt("id_medico"));
+                    medico.setNombre(rs.getString("nombre"));
+                    medico.setApellido_paterno(rs.getString("apellido_paterno"));
+                    medico.setApellido_materno(rs.getString("apellido_materno"));
+                    medico.setCedula(rs.getString("cedula"));
+                    medico.setEspecialidad(rs.getString("especialidad"));
+                    medico.setEstado(rs.getString("estado"));
+                    
+                    Usuario usuario = new Usuario();
+                    usuario.setId_usuario(rs.getInt("id_usuario"));
+                    usuario.setNombre(rs.getString("nombre"));
+                    usuario.setContrasenia(rs.getString("contrasenia"));  
+                    
+                    medico.setUsuario(usuario);
+                    
+                    return medico;
+                }
             }
         } catch (SQLException ex) {
             Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -49,7 +64,5 @@ public class MedicoDAO implements IMedicoDAO {
         }
         return null;
     }
-    
-    
     
 }

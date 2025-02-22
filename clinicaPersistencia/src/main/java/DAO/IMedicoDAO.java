@@ -10,10 +10,11 @@ import java.sql.SQLException;
 
 /**
  *
- * @author Abraham Coronel
+ * @author alega
  */
 public interface IMedicoDAO {
     
+    public Medico obtenerMedico(int id_usuario) throws SQLException, PersistenciaException;
     
     
 }
