@@ -4,25 +4,25 @@
  */
 package DTO;
 
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
 
 /**
  *
  * @author alega
  */
-public class ConsultasDTO {
+public class ConsultaDTO {
     
     private int id_consulta;
-    private LocalDateTime fecha_hora;
+    private Timestamp fecha_hora;
     private String diagnostico;
     private String tratamiento;
     private String observaciones;
     private CitaDTO cita;
 
-    public ConsultasDTO() {
+    public ConsultaDTO() {
     }
 
-    public ConsultasDTO(int id_consulta, LocalDateTime fecha_hora, String diagnostico, String tratamiento, String observaciones, CitaDTO cita) {
+    public ConsultaDTO(int id_consulta, Timestamp fecha_hora, String diagnostico, String tratamiento, String observaciones, CitaDTO cita) {
         this.id_consulta = id_consulta;
         this.fecha_hora = fecha_hora;
         this.diagnostico = diagnostico;
@@ -31,7 +31,7 @@ public class ConsultasDTO {
         this.cita = cita;
     }
 
-    public ConsultasDTO(LocalDateTime fecha_hora, String diagnostico, String tratamiento, String observaciones, CitaDTO cita) {
+    public ConsultaDTO(Timestamp fecha_hora, String diagnostico, String tratamiento, String observaciones, CitaDTO cita) {
         this.fecha_hora = fecha_hora;
         this.diagnostico = diagnostico;
         this.tratamiento = tratamiento;
@@ -47,11 +47,11 @@ public class ConsultasDTO {
         this.id_consulta = id_consulta;
     }
 
-    public LocalDateTime getFecha_hora() {
+    public Timestamp getFecha_hora() {
         return fecha_hora;
     }
 
-    public void setFecha_hora(LocalDateTime fecha_hora) {
+    public void setFecha_hora(Timestamp fecha_hora) {
         this.fecha_hora = fecha_hora;
     }
 

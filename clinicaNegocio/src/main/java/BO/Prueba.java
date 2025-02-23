@@ -5,6 +5,7 @@
 package BO;
 
 import DTO.CitaDTO;
+import DTO.ConsultaDTO;
 import DTO.MedicoDTO;
 import DTO.PacienteDTO;
 import DTO.UsuarioDTO;
@@ -20,6 +21,9 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -230,6 +234,44 @@ public class Prueba {
         }
         **/
         
+        /**
+        // prueba para obtener las citas de un médico (agenda)
+        try {
+            CitaBO citaBO = new CitaBO(conexion);
+            
+            List<CitaDTO> citas = citaBO.obtenerCitasMedico(2);
+            System.out.println("Citas del médico: ");
+            for (CitaDTO c : citas) {
+                System.out.println(c);
+            }
+            
+        } catch (NegocioException | PersistenciaException e) {
+            System.out.println("Error al obtener citas del médico: " + e.getMessage());
+        }
+        **/
+        
+        /**
+        // prueba para realizar una consulta, si jaló 
+        try {
+            CitaDTO cita = new CitaDTO();
+            cita.setId_cita(33);
+            
+            ConsultaDTO consulta = new ConsultaDTO();
+            consulta.setFecha_hora(new Timestamp(System.currentTimeMillis()));
+            consulta.setDiagnostico("Estrés por el proyecto de BD.");
+            consulta.setTratamiento("Dormir un mes.");
+            consulta.setObservaciones("El paciente se encuentra MUY grave.");
+            consulta.setCita(cita);
+            
+            ConsultaBO consultaBO = new ConsultaBO(conexion);
+            consultaBO.realizarConsulta(consulta);
+            System.out.println("Consulta realizada con éxito");
+        } catch (NegocioException | PersistenciaException e) {
+            System.out.println("Error al realizar la consulta: " + e.getMessage());
+        }
+        **/
+        
+        // prueba para 
     }
     
 }

@@ -5,10 +5,12 @@
 package mapper;
 
 import DTO.CitaDTO;
+import DTO.ConsultaDTO;
 import DTO.MedicoDTO;
 import DTO.PacienteDTO;
 import DTO.UsuarioDTO;
 import entidades.Cita;
+import entidades.Consulta;
 import entidades.Medico;
 import entidades.Paciente;
 import entidades.Usuario;
@@ -174,6 +176,44 @@ public class Mapper {
         medicoDTO.setUsuario(usuario);
         
         return medicoDTO;
+    }
+    
+    // Convertir de DTO a Entidad (ConsultaDTO -> Consulta)
+    public static Consulta toEntity (ConsultaDTO consultaDTO) {
+        if (consultaDTO == null) {
+            return null;
+        }
+        
+        Consulta consulta = new Consulta();
+        consulta.setId_consulta(consultaDTO.getId_consulta());
+        consulta.setFecha_hora(consultaDTO.getFecha_hora());
+        consulta.setDiagnostico(consultaDTO.getDiagnostico());
+        consulta.setTratamiento(consultaDTO.getTratamiento());
+        consulta.setObservaciones(consultaDTO.getObservaciones());
+        
+        Cita cita = toEntity(consultaDTO.getCita());
+        consulta.setCita(cita);
+        
+        return consulta;
+    }
+    
+    // Convertir de Entidad a DTO (Consulta -> ConsultaDTO)
+    public static ConsultaDTO toDTO(Consulta consulta) {
+        if (consulta == null) {
+            return null;
+        }
+        
+        ConsultaDTO consultaDTO = new ConsultaDTO();
+        consultaDTO.setId_consulta(consulta.getId_consulta());
+        consultaDTO.setFecha_hora(consulta.getFecha_hora());
+        consultaDTO.setDiagnostico(consulta.getDiagnostico());
+        consultaDTO.setTratamiento(consulta.getTratamiento());
+        consultaDTO.setObservaciones(consultaDTO.getObservaciones());
+        
+        CitaDTO citaDTO = toDTO(consulta.getCita());
+        consultaDTO.setCita(citaDTO);
+        
+        return consultaDTO;
     }
     
 }
