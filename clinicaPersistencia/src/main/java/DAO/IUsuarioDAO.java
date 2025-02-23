@@ -13,6 +13,12 @@ import excepciones.PersistenciaException;
  */
 public interface IUsuarioDAO {
     
-    public Usuario autenticarUsuario(String nombre_usuario, String contrasenia) throws PersistenciaException;    
+    // public Usuario autenticarUsuario(String nombre_usuario, String contrasenia) throws PersistenciaException;    
+    
+    public boolean iniciarSesion(Usuario usuario) throws PersistenciaException;
+    
+    public String obtenerTipoUsuario(String id_usuario) throws PersistenciaException;
+    
+    
     
 }

@@ -16,5 +16,9 @@ public interface IMedicoDAO {
     
     public Medico obtenerMedico(int id_usuario) throws SQLException, PersistenciaException;
     
+    public void desactivarMedico(Medico medico) throws SQLException, PersistenciaException;
+    
+    public void activarMedico(Medico medico) throws SQLException, PersistenciaException;;
+    
     
 }

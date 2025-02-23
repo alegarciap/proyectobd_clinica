@@ -8,10 +8,12 @@ import static DAO.PacienteDAO.getMD5;
 import conexion.IConexion;
 import entidades.Usuario;
 import excepciones.PersistenciaException;
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -26,53 +28,50 @@ public class UsuarioDAO implements IUsuarioDAO {
     public UsuarioDAO(IConexion conexion) {
         this.conexion = conexion;
     }
-
+    
     @Override
-    public Usuario autenticarUsuario(String nombre_usuario, String contrasenia) throws PersistenciaException {
-        String consultaSQL = "select id_usuario, contrasenia from usuarios where nombre = ?;";
+    public boolean iniciarSesion(Usuario usuario) throws PersistenciaException {
+        String comandoSQL = "select * from usuarios where nombre = ?;";
         
         try (Connection con = conexion.crearConexion(); 
-                PreparedStatement st = con.prepareStatement(consultaSQL)) {
-            st.setString(1, nombre_usuario);
-            ResultSet rs = st.executeQuery();
+                PreparedStatement ps = con.prepareStatement(comandoSQL)) {
+            ps.setString(1, usuario.getNombre());
+            //ps.setString(2, usuario.getContrasenia());
+            ResultSet rs = ps.executeQuery();
             
             if (rs.next()) {
-                int id_usuario = rs.getInt("id_usuario");
-                String contraseniaGuardada = rs.getString("contrasenia");
+                String contrasenia = rs.getString("contrasenia");
+                String contraseniaEncriptada = getMD5(usuario.getContrasenia());
                 
-                // verificar la constraseña encriptada
-                if (getMD5(contrasenia).equals(contraseniaGuardada)) { 
-                    // revisar en que tabla está el usuario
-                    if (existeEnTabla("pacientes", id_usuario, con)) {
-                        PacienteDAO paciente = new PacienteDAO(conexion);
-                        return paciente.obtenerPaciente(id_usuario).getUsuario(); 
-                    } else if (existeEnTabla("medicos", id_usuario, con)) {
-                        MedicoDAO medico = new MedicoDAO(conexion);
-                        return medico.obtenerMedico(id_usuario).getUsuario(); 
-                    }
+                if (contrasenia.equals(contraseniaEncriptada)) {
+                    return true; // inicio de sesión existoso
                 }
             }
         } catch (SQLException ex) {
             Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
-            throw new PersistenciaException("Error al iniciar sesión. Credenciales incorrectas.", ex);
+            throw new PersistenciaException("Error: No se pudo iniciar sesión.", ex);
         }
-        return null;
+        return false;
     }
-
-    // método auxiliar
-    private boolean existeEnTabla(String tabla, int id_usuario, Connection conexion) throws SQLException {
-        String campoId = "id_" + tabla.substring(0, tabla.length() - 1);  
-        String comandoSQL = "select 1 from " + tabla + " where " + campoId + " = ?";
-
-        try (PreparedStatement stmt = conexion.prepareStatement(comandoSQL)) {
-            stmt.setInt(1, id_usuario);
-            ResultSet rs = stmt.executeQuery();
-            if (rs.next()) {
-                return true;
-            } else {
-            }
+    
+    @Override
+    public String obtenerTipoUsuario(String id_usuario) throws PersistenciaException {
+        String tipo_usuario= "";
+        String comandoSQL = "call obtener_tipo_usuario(?);";
+        
+        try (Connection con = this.conexion.crearConexion();
+                CallableStatement cs = con.prepareCall(comandoSQL)) {
+            cs.setString(1, id_usuario);
+            cs.registerOutParameter(2, Types.VARCHAR);
+            
+            cs.execute();
+            
+            tipo_usuario = cs.getString(2);
+        } catch (SQLException ex) {
+            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+            throw new PersistenciaException("Error: No se pudo obtener el tipo de usuario.", ex);
         }
-        return false; // devuelve true si encuentra un registro
+        return tipo_usuario;
     }
     
 }

@@ -8,6 +8,7 @@ import conexion.IConexion;
 import entidades.Medico;
 import entidades.Usuario;
 import excepciones.PersistenciaException;
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -63,6 +64,36 @@ public class MedicoDAO implements IMedicoDAO {
             throw new PersistenciaException("Error al obtener médico.", ex);
         }
         return null;
+    }
+
+    @Override
+    public void desactivarMedico(Medico medico) throws SQLException, PersistenciaException {
+        String comandoSQL = "call desactivar_medico(?);";
+        
+        try (Connection con = this.conexion.crearConexion();
+                CallableStatement cb = con.prepareCall(comandoSQL)) {
+            cb.setInt(1, medico.getId_medico());
+            
+            cb.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(MedicoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            throw new PersistenciaException("Error al dar de baja el médico.", ex);
+        }
+    }
+
+    @Override
+    public void activarMedico(Medico medico) throws SQLException, PersistenciaException {
+        String comandoSQL = "call activar_medico(?);";
+        
+        try (Connection con = this.conexion.crearConexion();
+                CallableStatement cb = con.prepareCall(comandoSQL)) {
+            cb.setInt(1, medico.getId_medico());
+            
+            cb.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(MedicoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            throw new PersistenciaException("Error al activar el médico.", ex);
+        }
     }
     
 }
