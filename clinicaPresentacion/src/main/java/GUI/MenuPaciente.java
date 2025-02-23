@@ -15,7 +15,25 @@ public class MenuPaciente extends javax.swing.JFrame {
      */
     public MenuPaciente() {
         initComponents();
+        cargarNombreUsuario();
     }
+
+    private void cargarNombreUsuario() {
+        String nombreUsuario = "Nombre del usuario";
+        jTextField3.setText(nombreUsuario);
+    }                                 
+
+    private void btnEliminarCitaActionPerformed(java.awt.event.ActionEvent evt) {                                                
+        EliminarCita ventanaEliminarCita = new EliminarCita();
+        ventanaEliminarCita.setVisible(true);
+        this.setVisible(false); 
+    }                                               
+
+    private void btnCitaEmergenciaActionPerformed(java.awt.event.ActionEvent evt) {                                                  
+        CitaEmergencia ventanaCitaEmergencia = new CitaEmergencia();
+        ventanaCitaEmergencia.setVisible(true);
+        this.setVisible(false);
+    }      
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -181,15 +199,21 @@ public class MenuPaciente extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnPerfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPerfilActionPerformed
-        // TODO add your handling code here:
+        PerfilPaciente ventanaPerfil = new PerfilPaciente();
+        ventanaPerfil.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_btnPerfilActionPerformed
 
     private void btnHistorialConsultasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHistorialConsultasActionPerformed
-        // TODO add your handling code here:
+        HistorialConsultasPaciente ventanaHistorial = new HistorialConsultasPaciente();
+        ventanaHistorial.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_btnHistorialConsultasActionPerformed
 
     private void btnMisCitasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMisCitasActionPerformed
-        // TODO add your handling code here:
+        CitasPaciente ventanaMisCitas = new CitasPaciente();
+        ventanaMisCitas.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_btnMisCitasActionPerformed
 
     private void btnConfirmar4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmar4ActionPerformed
@@ -197,15 +221,19 @@ public class MenuPaciente extends javax.swing.JFrame {
     }//GEN-LAST:event_btnConfirmar4ActionPerformed
 
     private void btnCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesionActionPerformed
-        // TODO add your handling code here:
+        IniciarSesion ventanaIniciarSesion = new IniciarSesion();
+        ventanaIniciarSesion.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnCerrarSesionActionPerformed
 
     private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
-        // TODO add your handling code here:
+        cargarNombreUsuario();
     }//GEN-LAST:event_jTextField3ActionPerformed
 
     private void btnAgendarCitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgendarCitaActionPerformed
-        // TODO add your handling code here:
+        AgendarCita ventanaAgendarCita = new AgendarCita();
+        ventanaAgendarCita.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_btnAgendarCitaActionPerformed
 
     /**

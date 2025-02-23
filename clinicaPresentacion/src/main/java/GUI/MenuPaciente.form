@@ -56,14 +56,12 @@
                       <EmptySpace min="-2" pref="97" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="btnCitaEmergencia" max="32767" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="btnEliminarCita" max="32767" attributes="0"/>
-                              <Component id="jLabel1" max="32767" attributes="0"/>
-                              <Component id="btnMisCitas" alignment="0" max="32767" attributes="0"/>
-                              <Component id="btnPerfil" alignment="0" max="32767" attributes="0"/>
-                              <Component id="btnHistorialConsultas" alignment="0" max="32767" attributes="0"/>
-                              <Component id="btnAgendarCita" alignment="0" max="32767" attributes="0"/>
-                          </Group>
+                          <Component id="btnEliminarCita" max="32767" attributes="0"/>
+                          <Component id="jLabel1" max="32767" attributes="0"/>
+                          <Component id="btnMisCitas" alignment="0" max="32767" attributes="0"/>
+                          <Component id="btnPerfil" alignment="0" max="32767" attributes="0"/>
+                          <Component id="btnHistorialConsultas" alignment="0" max="32767" attributes="0"/>
+                          <Component id="btnAgendarCita" alignment="0" max="32767" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
