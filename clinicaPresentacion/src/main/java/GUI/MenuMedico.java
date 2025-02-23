@@ -15,6 +15,12 @@ public class MenuMedico extends javax.swing.JFrame {
      */
     public MenuMedico() {
         initComponents();
+        cargarNombreUsuario();
+    }
+    
+    private void cargarNombreUsuario() {
+        String nombreUsuario = "Nombre del usuario";
+        jTextField1.setText(nombreUsuario);
     }
 
     /**
@@ -30,7 +36,7 @@ public class MenuMedico extends javax.swing.JFrame {
         btnMiPerfil = new javax.swing.JButton();
         btnConsultarAgenda = new javax.swing.JButton();
         btnHistorialDeConsultas = new javax.swing.JButton();
-        btnConfirmar4 = new javax.swing.JButton();
+        btnCerrarSesion = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
@@ -77,13 +83,13 @@ public class MenuMedico extends javax.swing.JFrame {
             }
         });
 
-        btnConfirmar4.setBackground(new java.awt.Color(255, 0, 51));
-        btnConfirmar4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnConfirmar4.setForeground(new java.awt.Color(255, 255, 255));
-        btnConfirmar4.setText("Cerrar Sesion");
-        btnConfirmar4.addActionListener(new java.awt.event.ActionListener() {
+        btnCerrarSesion.setBackground(new java.awt.Color(255, 0, 51));
+        btnCerrarSesion.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnCerrarSesion.setForeground(new java.awt.Color(255, 255, 255));
+        btnCerrarSesion.setText("Cerrar Sesion");
+        btnCerrarSesion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnConfirmar4ActionPerformed(evt);
+                btnCerrarSesionActionPerformed(evt);
             }
         });
 
@@ -99,7 +105,7 @@ public class MenuMedico extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap(44, Short.MAX_VALUE)
-                .addComponent(btnConfirmar4)
+                .addComponent(btnCerrarSesion)
                 .addGap(720, 720, 720))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -137,7 +143,7 @@ public class MenuMedico extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(btnConsultarAgenda)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 104, Short.MAX_VALUE)
-                .addComponent(btnConfirmar4)
+                .addComponent(btnCerrarSesion)
                 .addGap(23, 23, 23))
         );
 
@@ -145,24 +151,34 @@ public class MenuMedico extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnActualizarEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarEstadoActionPerformed
-        // TODO add your handling code here:
+        EstadoMedico ventanaActualizarEstado = new EstadoMedico(); 
+        ventanaActualizarEstado.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_btnActualizarEstadoActionPerformed
 
     private void btnMiPerfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMiPerfilActionPerformed
-        // TODO add your handling code here:
+        PerfilMedico ventanaMiPerfil = new PerfilMedico();
+        ventanaMiPerfil.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_btnMiPerfilActionPerformed
 
     private void btnConsultarAgendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarAgendaActionPerformed
-        // TODO add your handling code here:
+        AgendaMedico ventanaConsultarAgenda = new AgendaMedico();
+        ventanaConsultarAgenda.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_btnConsultarAgendaActionPerformed
 
     private void btnHistorialDeConsultasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHistorialDeConsultasActionPerformed
-        // TODO add your handling code here:
+        ConsultasMedico ventanaHistorial = new ConsultasMedico();
+        ventanaHistorial.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_btnHistorialDeConsultasActionPerformed
 
-    private void btnConfirmar4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmar4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnConfirmar4ActionPerformed
+    private void btnCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesionActionPerformed
+        IniciarSesion ventanaIniciarSesion = new IniciarSesion();
+        ventanaIniciarSesion.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnCerrarSesionActionPerformed
 
     /**
      * @param args the command line arguments
@@ -201,7 +217,7 @@ public class MenuMedico extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActualizarEstado;
-    private javax.swing.JButton btnConfirmar4;
+    private javax.swing.JButton btnCerrarSesion;
     private javax.swing.JButton btnConsultarAgenda;
     private javax.swing.JButton btnHistorialDeConsultas;
     private javax.swing.JButton btnMiPerfil;
