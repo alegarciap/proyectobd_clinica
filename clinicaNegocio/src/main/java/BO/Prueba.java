@@ -14,6 +14,7 @@ import conexion.IConexion;
 import excepciones.NegocioException;
 import excepciones.PersistenciaException;
 import java.sql.Date;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -33,7 +34,7 @@ public class Prueba {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) throws ParseException {
+    public static void main(String[] args) throws ParseException, SQLException {
         IConexion conexion = new Conexion();
         
         /**
@@ -67,18 +68,21 @@ public class Prueba {
         **/
         
         /**
-        // prueba para iniciar sesion
+        // prueba para iniciar sesion, si funciona
         try {
-            UsuarioBO usuarioBO = new UsuarioBO(conexion);
-            String nombreUsuario = "usuarioPrueba2";
-            String contrasenia = "12345678";
+            UsuarioDTO usuarioDTO = new UsuarioDTO();
+            usuarioDTO.setNombre("carlos_perez2");
+            usuarioDTO.setContrasenia("nuevacontrasenia1234"); 
             
-            UsuarioDTO usuarioDTO2 = usuarioBO.autenticarUsuario(nombreUsuario, contrasenia);
-            System.out.println("Inicio de sesión existoso.");
-        } catch (NegocioException ex) {
-            logger.log(Level.SEVERE, "Error de negocio: " + ex.getMessage(), ex);
-        } catch (PersistenciaException ex) {
-            logger.log(Level.SEVERE, "Error de persistencia: " + ex.getMessage(), ex);
+            UsuarioBO usuarioBO = new UsuarioBO(conexion);
+            
+            if (usuarioBO.iniciarSesion(usuarioDTO)) {
+                System.out.println("Inicio de sesión exitoso.");
+            } else {
+                System.out.println("Credenciales incorrectas.");
+            }
+        } catch (NegocioException | PersistenciaException ex) {
+            logger.log(Level.SEVERE, "Error al iniciar sesión: " + ex.getMessage(), ex);
         }
         **/
         
@@ -196,7 +200,36 @@ public class Prueba {
         }
         **/
         
-        // prueba para
+        /**
+        // prueba para dar de baja médico, se probaron todos los escenarios y si funciona correctamente
+        try {
+            MedicoDTO medico = new MedicoDTO();
+            medico.setId_medico(3);
+
+            MedicoBO medicoBO = new MedicoBO(conexion);
+            
+            medicoBO.desactivarMedico(medico);
+            System.out.println("Baja de médico realizada con éxito");
+        } catch (NegocioException | PersistenciaException e) {
+            System.out.println("Error al dar de baja médico: " + e.getMessage());
+        }
+        **/
+        
+        /**
+        // prueba para activar médico, se probaron todos los escenarios y si funciona correctamente
+        try {
+            MedicoDTO medico = new MedicoDTO();
+            medico.setId_medico(3);
+
+            MedicoBO medicoBO = new MedicoBO(conexion);
+
+            medicoBO.activarMedico(medico);
+            System.out.println("Activación de médico realizada con éxito");
+        } catch (NegocioException | PersistenciaException e) {
+            System.out.println("Error al activar médico: " + e.getMessage());
+        }
+        **/
+        
     }
     
 }

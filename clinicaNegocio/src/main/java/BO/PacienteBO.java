@@ -21,7 +21,7 @@ import mapper.Mapper;
  */
 public class PacienteBO {
     
-    private static final Logger logger = Logger.getLogger(CitaBO.class.getName());
+    private static final Logger logger = Logger.getLogger(PacienteBO.class.getName());
     private final IPacienteDAO pacienteDAO;
     
     public PacienteBO(IConexion conexion) {
