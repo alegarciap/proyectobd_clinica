@@ -4,10 +4,17 @@
  */
 package DAO;
 
+import entidades.Consulta;
+import excepciones.PersistenciaException;
+import java.util.Date;
+import java.util.List;
+
 /**
  *
  * @author alega
  */
 public interface IConsultaDAO {
     
+    public void realizarConsulta(Consulta consulta) throws PersistenciaException;
+        
 }

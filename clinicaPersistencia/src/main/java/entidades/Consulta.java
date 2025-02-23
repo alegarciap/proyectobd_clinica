@@ -4,7 +4,7 @@
  */
 package entidades;
 
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
 
 /**
  *
@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 public class Consulta {
     
     private int id_consulta;
-    private LocalDateTime fecha_hora;
+    private Timestamp fecha_hora;
     private String diagnostico;
     private String tratamiento;
     private String observaciones;
@@ -22,7 +22,7 @@ public class Consulta {
     public Consulta() {
     }
 
-    public Consulta(int id_consulta, LocalDateTime fecha_hora, String diagnostico, String tratamiento, String observaciones, Cita cita) {
+    public Consulta(int id_consulta, Timestamp fecha_hora, String diagnostico, String tratamiento, String observaciones, Cita cita) {
         this.id_consulta = id_consulta;
         this.fecha_hora = fecha_hora;
         this.diagnostico = diagnostico;
@@ -31,7 +31,7 @@ public class Consulta {
         this.cita = cita;
     }
 
-    public Consulta(LocalDateTime fecha_hora, String diagnostico, String tratamiento, String observaciones, Cita cita) {
+    public Consulta(Timestamp fecha_hora, String diagnostico, String tratamiento, String observaciones, Cita cita) {
         this.fecha_hora = fecha_hora;
         this.diagnostico = diagnostico;
         this.tratamiento = tratamiento;
@@ -47,11 +47,11 @@ public class Consulta {
         this.id_consulta = id_consulta;
     }
 
-    public LocalDateTime getFecha_hora() {
+    public Timestamp getFecha_hora() {
         return fecha_hora;
     }
 
-    public void setFecha_hora(LocalDateTime fecha_hora) {
+    public void setFecha_hora(Timestamp fecha_hora) {
         this.fecha_hora = fecha_hora;
     }
 
