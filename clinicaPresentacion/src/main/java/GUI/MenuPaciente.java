@@ -199,19 +199,22 @@ public class MenuPaciente extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnPerfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPerfilActionPerformed
-        PerfilPaciente ventanaPerfil = new PerfilPaciente();
+        int idMedico = 4;
+        PerfilPaciente ventanaPerfil = new PerfilPaciente(idMedico);
         ventanaPerfil.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnPerfilActionPerformed
 
     private void btnHistorialConsultasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHistorialConsultasActionPerformed
-        HistorialConsultasPaciente ventanaHistorial = new HistorialConsultasPaciente();
+        int idMedico = 4;
+        HistorialConsultasPaciente ventanaHistorial = new HistorialConsultasPaciente(idMedico);
         ventanaHistorial.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnHistorialConsultasActionPerformed
 
     private void btnMisCitasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMisCitasActionPerformed
-        CitasPaciente ventanaMisCitas = new CitasPaciente();
+        int idMedico = 4;
+        CitasPaciente ventanaMisCitas = new CitasPaciente(idMedico);
         ventanaMisCitas.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnMisCitasActionPerformed

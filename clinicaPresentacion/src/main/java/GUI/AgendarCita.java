@@ -4,22 +4,7 @@
  */
 package GUI;
 
-import DAO.CitaDAO;
-import DAO.MedicoDAO;
-import DAO.PacienteDAO;
-import conexion.Conexion;
-import conexion.IConexion;
-import entidades.Cita;
-import entidades.Medico;
-import entidades.Paciente;
-import excepciones.PersistenciaException;
-import java.sql.SQLException;
-import java.sql.Timestamp;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JOptionPane;
+
 
 /**
  *
@@ -27,12 +12,11 @@ import javax.swing.JOptionPane;
  */
 public class AgendarCita extends javax.swing.JFrame {
 
-    /**
-     * Creates new form AgendarCita
-     */
     public AgendarCita() {
         initComponents();
     }
+
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -47,7 +31,6 @@ public class AgendarCita extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         btnRegresar = new javax.swing.JButton();
         btnConfirmar = new javax.swing.JButton();
@@ -55,6 +38,7 @@ public class AgendarCita extends javax.swing.JFrame {
         jComboBox1 = new javax.swing.JComboBox<>();
         jDateChooser1 = new com.toedter.calendar.JDateChooser();
         jSpinField1 = new com.toedter.components.JSpinField();
+        jComboBox2 = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setSize(new java.awt.Dimension(1280, 720));
@@ -96,6 +80,8 @@ public class AgendarCita extends javax.swing.JFrame {
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -108,20 +94,14 @@ public class AgendarCita extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(374, 374, 374)
                         .addComponent(jLabel2)))
-                .addGap(150, 150, 150))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(btnRegresar)
-                .addGap(79, 79, 79)
-                .addComponent(btnConfirmar)
-                .addGap(77, 77, 77))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel4)
-                    .addComponent(jTextField1)
                     .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jComboBox2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(144, 144, 144)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jDateChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, 308, Short.MAX_VALUE)
@@ -129,6 +109,12 @@ public class AgendarCita extends javax.swing.JFrame {
                 .addGap(28, 28, 28)
                 .addComponent(jSpinField1, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(35, 35, 35))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnRegresar)
+                .addGap(81, 81, 81)
+                .addComponent(btnConfirmar)
+                .addGap(78, 78, 78))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -145,18 +131,18 @@ public class AgendarCita extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(57, 57, 57)
                         .addComponent(jLabel4)
                         .addGap(35, 35, 35)
                         .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(136, 136, 136)
+                        .addGap(107, 107, 107)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnRegresar)
                             .addComponent(btnConfirmar)))
                     .addComponent(jSpinField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap(52, Short.MAX_VALUE))
         );
 
         pack();
@@ -168,52 +154,6 @@ public class AgendarCita extends javax.swing.JFrame {
 
     private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
 
-        Date fecha = jDateChooser1.getDate();
-
-        int hora = jSpinField1.getValue();
-        int minutos = 0;  
-
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(fecha);
-        calendar.set(Calendar.HOUR_OF_DAY, hora);
-        calendar.set(Calendar.MINUTE, minutos);
-
-        Timestamp fechaHoraFinal = new Timestamp(calendar.getTimeInMillis());
-
-        int idPaciente = 123;  
-
-        try {
-
-            IConexion conexion = new Conexion();
-            PacienteDAO pacienteDAO = new PacienteDAO(conexion);
-            Paciente paciente = pacienteDAO.obtenerPaciente(idPaciente);
-            if (paciente == null) {
-                JOptionPane.showMessageDialog(this, "Paciente no encontrado.");
-                return;  
-            }
-
-
-            MedicoDAO medicoDAO = new MedicoDAO(conexion);
-            Medico medico = medicoDAO.obtenerMedico(idMedico);
-            if (medico == null) {
-                JOptionPane.showMessageDialog(this, "Médico no encontrado.");
-                return;  
-            }
-
-            CitaDAO cita = new Cita(fechaHoraFinal, paciente, medico);
-
-
-            CitaDAO citaDAO = new CitaDAO(conexion);
-            citaDAO.agendarCita(cita);  
-
-            // Mostrar mensaje de éxito
-            JOptionPane.showMessageDialog(this, "Cita agendada exitosamente.");
-
-        } catch (PersistenciaException e) {
-            JOptionPane.showMessageDialog(this, "Error al agendar la cita: " + e.getMessage());
-        } catch (SQLException ex) {
-            Logger.getLogger(AgendarCita.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }//GEN-LAST:event_btnConfirmarActionPerformed
 
     /**
@@ -256,6 +196,7 @@ public class AgendarCita extends javax.swing.JFrame {
     private javax.swing.JButton btnRegresar;
     private com.toedter.calendar.JCalendar jCalendar1;
     private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> jComboBox2;
     private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -263,6 +204,5 @@ public class AgendarCita extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private com.toedter.components.JSpinField jSpinField1;
-    private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 }
