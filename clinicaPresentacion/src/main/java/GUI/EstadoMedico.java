@@ -4,17 +4,57 @@
  */
 package GUI;
 
+import DAO.MedicoDAO;
+import conexion.Conexion;
+import conexion.IConexion;
+import entidades.Medico;
+import excepciones.PersistenciaException;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+
 /**
  *
- * @author PC Gamer
+ * @author Abraham Coronel Bringas
  */
 public class EstadoMedico extends javax.swing.JFrame {
 
-    /**
-     * Creates new form EstadoMedico
-     */
-    public EstadoMedico() {
+    private MedicoDAO medicoDAO;
+    private Medico medico;
+
+    // Constructor que recibe el objeto Medico
+    public EstadoMedico(int id_medico) {
         initComponents();
+        IConexion conexion = new Conexion();
+        medicoDAO = new MedicoDAO(conexion);
+        try {
+            medico = medicoDAO.obtenerMedico(id_medico); // Obtener el médico usando el id
+        } catch (SQLException | PersistenciaException ex) {
+            JOptionPane.showMessageDialog(this, "Error al obtener el médico: " + ex.getMessage());
+        }
+    }
+
+    // Método para desactivar el médico
+    private void desactivarMedico() {
+        try {
+            medicoDAO.desactivarMedico(medico);
+            JOptionPane.showMessageDialog(this, "Médico desactivado exitosamente.");
+            btnActivo.setEnabled(true); // Habilitamos el botón de activar
+            btnInactivo.setEnabled(false); // Deshabilitamos el botón de inactivo
+        } catch (SQLException | PersistenciaException ex) {
+            JOptionPane.showMessageDialog(this, "Error al desactivar el médico: " + ex.getMessage());
+        }
+    }
+
+    // Método para activar el médico
+    private void activarMedico() {
+        try {
+            medicoDAO.activarMedico(medico);
+            JOptionPane.showMessageDialog(this, "Médico activado exitosamente.");
+            btnActivo.setEnabled(false); // Deshabilitamos el botón de activo
+            btnInactivo.setEnabled(true); // Habilitamos el botón de inactivo
+        } catch (SQLException | PersistenciaException ex) {
+            JOptionPane.showMessageDialog(this, "Error al activar el médico: " + ex.getMessage());
+        }
     }
 
     /**
@@ -55,11 +95,21 @@ public class EstadoMedico extends javax.swing.JFrame {
         btnInactivo.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnInactivo.setForeground(new java.awt.Color(255, 255, 255));
         btnInactivo.setText("Inactivo");
+        btnInactivo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInactivoActionPerformed(evt);
+            }
+        });
 
         jButton3.setBackground(new java.awt.Color(255, 0, 0));
         jButton3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jButton3.setForeground(new java.awt.Color(255, 255, 255));
         jButton3.setText("Regresar");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -103,40 +153,25 @@ public class EstadoMedico extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnActivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActivoActionPerformed
-        // TODO add your handling code here:
+        activarMedico();
     }//GEN-LAST:event_btnActivoActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void btnInactivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInactivoActionPerformed
+        desactivarMedico();
+    }//GEN-LAST:event_btnInactivoActionPerformed
 
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(EstadoMedico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(EstadoMedico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(EstadoMedico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(EstadoMedico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
+        int idMedico = 1; // Aquí puedes cambiar este valor por cualquier ID de médico
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new EstadoMedico().setVisible(true);
+                new EstadoMedico(idMedico).setVisible(true);
             }
         });
     }
