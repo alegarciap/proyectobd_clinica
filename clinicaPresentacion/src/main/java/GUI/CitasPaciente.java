@@ -4,17 +4,43 @@
  */
 package GUI;
 
+import DAO.CitaDAO;
+import conexion.Conexion;
+import conexion.IConexion;
+import entidades.Cita;
+import excepciones.PersistenciaException;
+import java.awt.List;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author alfre
  */
 public class CitasPaciente extends javax.swing.JFrame {
 
-    /**
-     * Creates new form CitasPaciente
-     */
-    public CitasPaciente() {
+    IConexion conexion = new Conexion();
+    private CitaDAO citaDAO = new CitaDAO(conexion);
+
+    public void cargarCita(int id_medico) {
+        try {
+            List<Cita> citas = citaDAO.obtenerCitasMedico(id_medico);
+
+            if (citas != null && !citas.isEmpty()) {
+                Cita cita = citas.get(0);
+
+                jTextField1.setText(cita.getFecha_hora().toString());
+                jTextField2.setText(cita.getPaciente().getNombre() + " " + cita.getPaciente().getApellido_paterno());
+                jTextField3.setText(cita.getPaciente().getApellido_materno());
+                jTextField4.setText(cita.getPaciente().getId_paciente() + "");
+            }
+        } catch (PersistenciaException e) {
+            JOptionPane.showMessageDialog(this, "Error al obtener las citas: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    public CitasPaciente(int id_medico) {
         initComponents();
+        cargarCita(id_medico);
     }
 
     /**
@@ -162,7 +188,7 @@ public class CitasPaciente extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-        // TODO add your handling code here:
+        dispose(); 
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     /**

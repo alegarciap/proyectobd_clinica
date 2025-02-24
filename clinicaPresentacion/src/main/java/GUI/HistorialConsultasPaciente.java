@@ -4,17 +4,62 @@
  */
 package GUI;
 
+import DAO.CitaDAO;
+import conexion.Conexion;
+import conexion.IConexion;
+import entidades.Cita;
+import excepciones.PersistenciaException;
+import java.awt.List;
+import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
+
 /**
  *
- * @author PC Gamer
+ * @author Abraham Coronel Bringas
  */
 public class HistorialConsultasPaciente extends javax.swing.JFrame {
 
+    private int idMedico;  // Atributo para almacenar el id del médico
+
     /**
-     * Creates new form HistorialConsultasPaciente
+     * Constructor que recibe el id_medico
      */
-    public HistorialConsultasPaciente() {
+    public HistorialConsultasPaciente(int idMedico) {
         initComponents();
+        this.idMedico = idMedico;
+        cargarCitas();
+    }
+
+    /**
+     * Método para cargar las citas del médico
+     */
+    private void cargarCitas() {
+        try {
+            // Instanciamos CitaDAO para obtener las citas del médico
+            IConexion conexion = new Conexion();
+            CitaDAO citaDAO = new CitaDAO(conexion);
+            List<Cita> citas = citaDAO.obtenerCitasMedico(idMedico);
+
+            // Creamos un modelo para el JList
+            DefaultListModel<String> model = new DefaultListModel<>();
+            jList1.setModel(model);  
+
+            model.removeAllElements();
+
+            if (citas.isEmpty()) {
+                model.addElement("No hay citas programadas.");
+            } else {
+                for (Cita cita : citas) {
+                    String citaInfo = "Paciente: " + cita.getPaciente().getNombre() + " "
+                            + cita.getPaciente().getApellido_paterno() + " - Fecha: "
+                            + cita.getFecha_hora();
+                    model.addElement(citaInfo);  
+                }
+            }
+
+        } catch (PersistenciaException ex) {
+            JOptionPane.showMessageDialog(this, "Error al obtener las citas del médico.");
+        }
     }
 
     /**
@@ -28,8 +73,9 @@ public class HistorialConsultasPaciente extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        list1 = new java.awt.List();
         btnRegresar = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jList1 = new javax.swing.JList<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setSize(new java.awt.Dimension(1280, 720));
@@ -50,6 +96,16 @@ public class HistorialConsultasPaciente extends javax.swing.JFrame {
             }
         });
 
+        jList1.setBackground(new java.awt.Color(255, 153, 153));
+        jList1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jList1.setForeground(new java.awt.Color(255, 255, 255));
+        jList1.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane1.setViewportView(jList1);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -57,30 +113,30 @@ public class HistorialConsultasPaciente extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(336, 336, 336)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel1)))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(37, 37, 37)
                         .addComponent(btnRegresar)
-                        .addGap(183, 183, 183)
-                        .addComponent(list1, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(435, Short.MAX_VALUE))
+                        .addGap(193, 193, 193)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(349, 349, 349)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel1))))
+                .addContainerGap(410, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(jLabel1)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(btnRegresar)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(18, 18, 18)
                         .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(list1, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(9, 9, 9)))
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(19, 19, 19)))
                 .addContainerGap(40, Short.MAX_VALUE))
         );
 
@@ -88,7 +144,7 @@ public class HistorialConsultasPaciente extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-        // TODO add your handling code here:
+        this.dispose();
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     /**
@@ -130,6 +186,7 @@ public class HistorialConsultasPaciente extends javax.swing.JFrame {
     private javax.swing.JButton btnRegresar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private java.awt.List list1;
+    private javax.swing.JList<String> jList1;
+    private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }
