@@ -44,7 +44,7 @@ public class UsuarioBO {
         }
     }
     
-    public String obtenerTipoUsuario(String id_usuario) throws PersistenciaException, NegocioException {
+    public String obtenerTipoUsuario(int id_usuario) throws PersistenciaException, NegocioException {
         // validaciones necesarias
         
         try {
