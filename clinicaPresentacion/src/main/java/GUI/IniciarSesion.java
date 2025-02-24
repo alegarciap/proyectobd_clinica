@@ -4,16 +4,16 @@
  */
 package GUI;
 
-import DAO.UsuarioDAO;
 import conexion.Conexion;
 import conexion.IConexion;
-import entidades.Usuario;
 import excepciones.PersistenciaException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
  *
- * @author PC Gamer
+ * @author Abraham Coronel Bringas
  */
 public class IniciarSesion extends javax.swing.JFrame {
 
@@ -120,7 +120,7 @@ public class IniciarSesion extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jTextFieldUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldUsuarioActionPerformed
-        
+
     }//GEN-LAST:event_jTextFieldUsuarioActionPerformed
 
     private void btnIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarSesionActionPerformed
@@ -133,24 +133,21 @@ public class IniciarSesion extends javax.swing.JFrame {
             return;
         }
 
-        // Crear el objeto Usuario con los datos ingresados
-        Usuario usuarioObj = new Usuario();
-        usuarioObj.setNombre(usuario);
-        usuarioObj.setContrasenia(contrasenia);
+        DTO.UsuarioDTO usuarioDTO = new DTO.UsuarioDTO();
+        usuarioDTO.setNombre(usuario);
+        usuarioDTO.setContrasenia(contrasenia);
 
         try {
             IConexion conexion = new Conexion();
-            UsuarioDAO usuarioDAO = new UsuarioDAO(conexion);
+            BO.UsuarioBO usuarioBO = new BO.UsuarioBO(conexion);
 
-            if (usuarioDAO.iniciarSesion(usuarioObj)) {
-                String tipoUsuario = usuarioDAO.obtenerTipoUsuario(usuario);
+            if (usuarioBO.iniciarSesion(usuarioDTO)) {
+                String tipoUsuario = usuarioBO.obtenerTipoUsuario(usuarioDTO.getId_usuario());
 
-                if (tipoUsuario.equals("medico")) {
-                    MenuMedico ventanaMedico = new MenuMedico();
-                    ventanaMedico.setVisible(true);
-                } else if (tipoUsuario.equals("paciente")) {
-                    MenuPaciente ventanaPaciente = new MenuPaciente();
-                    ventanaPaciente.setVisible(true);
+                if (tipoUsuario.equalsIgnoreCase("medico")) {
+                    new MenuMedico().setVisible(true);
+                } else if (tipoUsuario.equalsIgnoreCase("paciente")) {
+                    new MenuPaciente().setVisible(true);
                 } else {
                     JOptionPane.showMessageDialog(this, "Tipo de usuario desconocido.", "Error", JOptionPane.ERROR_MESSAGE);
                     return;
@@ -159,8 +156,10 @@ public class IniciarSesion extends javax.swing.JFrame {
             } else {
                 JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos.", "Error", JOptionPane.ERROR_MESSAGE);
             }
+        } catch (excepciones.NegocioException ex) {
+            JOptionPane.showMessageDialog(this, "Error al iniciar sesión: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         } catch (PersistenciaException ex) {
-            JOptionPane.showMessageDialog(this, "Error al verificar el inicio de sesión: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            Logger.getLogger(IniciarSesion.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnIniciarSesionActionPerformed
 

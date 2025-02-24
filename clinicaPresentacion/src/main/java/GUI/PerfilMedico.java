@@ -14,7 +14,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author PC Gamer
+ * @author Abraham Coronel Bringas
  */
 public class PerfilMedico extends javax.swing.JFrame {
 

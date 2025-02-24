@@ -4,20 +4,19 @@
  */
 package GUI;
 
-import DAO.PacienteDAO;
+
 import conexion.Conexion;
 import conexion.IConexion;
-import entidades.Paciente;
-import entidades.Usuario;
 import excepciones.PersistenciaException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
  *
- * @author PC Gamer
+ * @author Abraham Coronel Bringas
  */
 public class Registrarse extends javax.swing.JFrame {
 
@@ -28,9 +27,8 @@ public class Registrarse extends javax.swing.JFrame {
         initComponents();
     }
 
-    private void registrarUsuario() {
+    private void registrarUsuario() throws PersistenciaException {
         try {
-            // Obtener los valores de los campos de texto
             String nombre = TextFieldNombre.getText().trim();
             String apellidoPaterno = TextFieldApellidoPaterno.getText().trim();
             String apellidoMaterno = TextFieldApellidoMaterno.getText().trim();
@@ -41,14 +39,12 @@ public class Registrarse extends javax.swing.JFrame {
             String usuarioNombre = TextFieldUsuario.getText().trim();
             String contrasenia = new String(jPasswordFieldContrasenia.getPassword()).trim();
 
-            // Validaciones básicas (para evitar valores vacíos)
             if (nombre.isEmpty() || apellidoPaterno.isEmpty() || usuarioNombre.isEmpty() || contrasenia.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos obligatorios", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
-            // Convertir la fecha de String a Date (si la fecha está en formato yyyy-MM-dd)
-            Date fechaNacimiento = null;
+            java.sql.Date fechaNacimiento;
             try {
                 SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
                 fechaNacimiento = new java.sql.Date(formato.parse(fechaNacimientoStr).getTime());
@@ -57,46 +53,38 @@ public class Registrarse extends javax.swing.JFrame {
                 return;
             }
 
-            // Crear objeto Usuario
-            Usuario usuario = new Usuario();
-            usuario.setId_usuario(0); // Se generará automáticamente en la BD
-            usuario.setNombre(usuarioNombre);
-            usuario.setContrasenia(contrasenia); // Se encriptará en el método registrarPaciente
+            DTO.UsuarioDTO usuarioDTO = new DTO.UsuarioDTO();
+            usuarioDTO.setId_usuario(0);
+            usuarioDTO.setNombre(usuarioNombre);
+            usuarioDTO.setContrasenia(contrasenia);
 
-            // Crear objeto Paciente
-            Paciente paciente = new Paciente();
-            paciente.setUsuario(usuario);
-            paciente.setNombre(nombre);
-            paciente.setApellido_paterno(apellidoPaterno);
-            paciente.setApellido_materno(apellidoMaterno);
-            paciente.setDireccion(direccion);
-            paciente.setFecha_nacimiento(fechaNacimiento);
-            paciente.setTelefono(telefono);
-            paciente.setCorreo(correo);
+            DTO.PacienteDTO pacienteDTO = new DTO.PacienteDTO();
+            pacienteDTO.setNombre(nombre);
+            pacienteDTO.setApellido_paterno(apellidoPaterno);
+            pacienteDTO.setApellido_materno(apellidoMaterno);
+            pacienteDTO.setDireccion(direccion);
+            pacienteDTO.setFecha_nacimiento(fechaNacimiento);
+            pacienteDTO.setTelefono(telefono);
+            pacienteDTO.setCorreo(correo);
+            pacienteDTO.setUsuario(usuarioDTO);
 
-            // Crear una instancia de ConexionBD (que implementa IConexion)
             IConexion conexion = new Conexion();
+            BO.PacienteBO pacienteBO = new BO.PacienteBO(conexion);
 
-            // Crear la instancia de PacienteDAO pasando la conexión
-            PacienteDAO pacienteDAO = new PacienteDAO(conexion);
-
-            // Llamar al método para registrar al paciente
-            pacienteDAO.registrarPaciente(paciente);
+            pacienteBO.registrarPaciente(pacienteDTO);
 
             JOptionPane.showMessageDialog(this, "Paciente registrado con éxito.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
 
-        } catch (PersistenciaException ex) {
+        } catch (excepciones.NegocioException ex) {
             JOptionPane.showMessageDialog(this, "Error al registrar el paciente: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
     private void regresar() {
-        // Cerrar la ventana actual
         this.setVisible(false);
 
-        // Crear la instancia de la nueva ventana
-        IniciarSesion iniciarsesion = new IniciarSesion(); // Cambia "OtraVentana" por el nombre de la clase de la nueva ventana
-        iniciarsesion.setVisible(true); // Hacer visible la nueva ventana
+        IniciarSesion iniciarsesion = new IniciarSesion();
+        iniciarsesion.setVisible(true);
     }
 
     /**
@@ -318,7 +306,11 @@ public class Registrarse extends javax.swing.JFrame {
     }//GEN-LAST:event_TextFieldApellidoPaternoActionPerformed
 
     private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
-        registrarUsuario();
+        try {
+            registrarUsuario();
+        } catch (PersistenciaException ex) {
+            Logger.getLogger(Registrarse.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnConfirmarActionPerformed
 
     private void TextFieldNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TextFieldNombreActionPerformed
