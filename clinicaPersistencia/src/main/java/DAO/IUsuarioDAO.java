@@ -17,7 +17,7 @@ public interface IUsuarioDAO {
     
     public boolean iniciarSesion(Usuario usuario) throws PersistenciaException;
     
-    public String obtenerTipoUsuario(String id_usuario) throws PersistenciaException;
+    public String obtenerTipoUsuario(int id_usuario) throws PersistenciaException;
     
     
     

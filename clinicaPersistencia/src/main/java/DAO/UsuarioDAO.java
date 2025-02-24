@@ -55,13 +55,13 @@ public class UsuarioDAO implements IUsuarioDAO {
     }
     
     @Override
-    public String obtenerTipoUsuario(String id_usuario) throws PersistenciaException {
+    public String obtenerTipoUsuario(int id_usuario) throws PersistenciaException {
         String tipo_usuario= "";
-        String comandoSQL = "call obtener_tipo_usuario(?);";
+        String comandoSQL = "call obtener_tipo_usuario(?, ?);";
         
         try (Connection con = this.conexion.crearConexion();
                 CallableStatement cs = con.prepareCall(comandoSQL)) {
-            cs.setString(1, id_usuario);
+            cs.setInt(1, id_usuario);
             cs.registerOutParameter(2, Types.VARCHAR);
             
             cs.execute();
