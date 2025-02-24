@@ -4,6 +4,13 @@
  */
 package GUI;
 
+import DAO.UsuarioDAO;
+import conexion.Conexion;
+import conexion.IConexion;
+import entidades.Usuario;
+import excepciones.PersistenciaException;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author PC Gamer
@@ -16,6 +23,7 @@ public class IniciarSesion extends javax.swing.JFrame {
     public IniciarSesion() {
         initComponents();
     }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -29,9 +37,9 @@ public class IniciarSesion extends javax.swing.JFrame {
         btnIniciarSesion = new javax.swing.JButton();
         btnRegistrarse = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        jTextFieldUsuario = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        jPasswordField1 = new javax.swing.JPasswordField();
+        jPasswordFieldContrasenia = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setSize(new java.awt.Dimension(1280, 720));
@@ -54,16 +62,16 @@ public class IniciarSesion extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel1.setText("Ingresa su usuario:");
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        jTextFieldUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                jTextFieldUsuarioActionPerformed(evt);
             }
         });
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel2.setText("Ingresa su contraseña");
 
-        jPasswordField1.setText("jPasswordField1");
+        jPasswordFieldContrasenia.setText("jPasswordField1");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -74,11 +82,11 @@ public class IniciarSesion extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(360, 360, 360)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextFieldUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(jLabel1)
                                 .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jPasswordField1))))
+                                .addComponent(jPasswordFieldContrasenia))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(371, 371, 371)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -92,11 +100,11 @@ public class IniciarSesion extends javax.swing.JFrame {
                 .addGap(43, 43, 43)
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTextFieldUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel2)
                 .addGap(30, 30, 30)
-                .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPasswordFieldContrasenia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(44, 44, 44)
                 .addComponent(btnIniciarSesion)
                 .addGap(39, 39, 39)
@@ -107,9 +115,53 @@ public class IniciarSesion extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    private void jTextFieldUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldUsuarioActionPerformed
+        // Obtener los valores de los campos
+        String usuario = jTextFieldUsuario.getText().trim();
+        String contrasenia = new String(jPasswordFieldContrasenia.getPassword()).trim();
+
+        // Validar que los campos no estén vacíos
+        if (usuario.isEmpty() || contrasenia.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Por favor, ingrese su usuario y contraseña.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Crear un objeto Usuario con los datos ingresados
+        Usuario usuarioObj = new Usuario();
+        usuarioObj.setNombre(usuario);
+        usuarioObj.setContrasenia(contrasenia);
+
+        try {
+            // Verificar las credenciales
+            IConexion conexion = new Conexion();
+            UsuarioDAO usuarioDAO = new UsuarioDAO(conexion);
+
+            if (usuarioDAO.iniciarSesion(usuarioObj)) {
+                // Si el inicio de sesión es exitoso, verificar el tipo de usuario
+                String tipoUsuario = usuarioDAO.obtenerTipoUsuario(usuario);
+
+                // Dependiendo del tipo de usuario, redirigir a la ventana correspondiente
+                if (tipoUsuario.equals("medico")) {
+                    // Redirigir a la ventana del médico
+                    MenuMedico ventanaMedico = new MenuMedico();
+                    ventanaMedico.setVisible(true);
+                } else if (tipoUsuario.equals("paciente")) {
+                    // Redirigir a la ventana del paciente
+                    MenuPaciente ventanaPaciente = new MenuPaciente();
+                    ventanaPaciente.setVisible(true);
+                }
+
+                // Cerrar la ventana de inicio de sesión
+                this.dispose();
+
+            } else {
+                // Si las credenciales no son correctas
+                JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (PersistenciaException ex) {
+            JOptionPane.showMessageDialog(this, "Error al verificar el inicio de sesión: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jTextFieldUsuarioActionPerformed
 
     private void btnIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarSesionActionPerformed
         // TODO add your handling code here:
@@ -155,7 +207,7 @@ public class IniciarSesion extends javax.swing.JFrame {
     private javax.swing.JButton btnRegistrarse;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JPasswordField jPasswordField1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JPasswordField jPasswordFieldContrasenia;
+    private javax.swing.JTextField jTextFieldUsuario;
     // End of variables declaration//GEN-END:variables
 }

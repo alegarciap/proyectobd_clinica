@@ -17,7 +17,7 @@ public class MenuMedico extends javax.swing.JFrame {
         initComponents();
         cargarNombreUsuario();
     }
-    
+
     private void cargarNombreUsuario() {
         String nombreUsuario = "Nombre del usuario";
         jTextField1.setText(nombreUsuario);
@@ -151,9 +151,10 @@ public class MenuMedico extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnActualizarEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarEstadoActionPerformed
-        EstadoMedico ventanaActualizarEstado = new EstadoMedico(); 
+        int idMedico = 5; 
+        EstadoMedico ventanaActualizarEstado = new EstadoMedico(idMedico);
         ventanaActualizarEstado.setVisible(true);
-        this.setVisible(false);
+        this.setVisible(false); 
     }//GEN-LAST:event_btnActualizarEstadoActionPerformed
 
     private void btnMiPerfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMiPerfilActionPerformed

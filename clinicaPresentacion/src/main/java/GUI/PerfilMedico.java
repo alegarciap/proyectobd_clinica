@@ -4,17 +4,51 @@
  */
 package GUI;
 
+import DAO.MedicoDAO;
+import conexion.Conexion;
+import conexion.IConexion;
+import entidades.Medico;
+import excepciones.PersistenciaException;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author PC Gamer
  */
 public class PerfilMedico extends javax.swing.JFrame {
 
-    /**
-     * Creates new form PerfilMedico
-     */
+    private MedicoDAO medicoDAO;  
+
+    public PerfilMedico(int id_usuario) {
+        initComponents();
+        IConexion conexion = new Conexion();
+        medicoDAO = new MedicoDAO(conexion);  
+        try {
+            Medico medico = medicoDAO.obtenerMedico(id_usuario);
+            if (medico != null) {
+                // Asignamos los valores a los JTextFields
+                jTextField1.setText(medico.getNombre() + " " + medico.getApellido_paterno() + " " + medico.getApellido_materno());
+                jTextField2.setText(medico.getEspecialidad());
+                jTextField3.setText(medico.getCedula());
+            } else {
+                JOptionPane.showMessageDialog(this, "Médico no encontrado");
+            }
+        } catch (SQLException | PersistenciaException ex) {
+            JOptionPane.showMessageDialog(this, "Error al obtener datos del médico: " + ex.getMessage());
+        }
+    }
     public PerfilMedico() {
         initComponents();
+    }
+    
+    private void regresar() {
+        // Cerrar la ventana actual
+        this.setVisible(false);
+
+        // Crear la instancia de la nueva ventana
+        MenuMedico menumedico = new MenuMedico(); 
+        menumedico.setVisible(true); 
     }
 
     /**
@@ -111,7 +145,7 @@ public class PerfilMedico extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        regresar();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
