@@ -4,12 +4,13 @@
  */
 package GUI;
 
-import DAO.CitaDAO;
+import DAO.ConsultaDAO;
 import conexion.Conexion;
 import conexion.IConexion;
-import entidades.Cita;
+import entidades.Consulta;
 import excepciones.PersistenciaException;
-import java.awt.List;
+import java.util.List;
+import java.sql.Timestamp;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 
@@ -19,48 +20,56 @@ import javax.swing.JOptionPane;
  */
 public class HistorialConsultasPaciente extends javax.swing.JFrame {
 
-    private int idMedico;  // Atributo para almacenar el id del médico
+    private int idMedico;  
 
     /**
      * Constructor que recibe el id_medico
      */
-    public HistorialConsultasPaciente(int idMedico) {
+    public HistorialConsultasPaciente(int idPaciente) {
         initComponents();
-        this.idMedico = idMedico;
-        cargarCitas();
+        this.idMedico = idMedico;  
+        cargarHistorialConsultas(idPaciente); 
     }
 
     /**
      * Método para cargar las citas del médico
      */
-    private void cargarCitas() {
-        try {
-            // Instanciamos CitaDAO para obtener las citas del médico
-            IConexion conexion = new Conexion();
-            CitaDAO citaDAO = new CitaDAO(conexion);
-            List<Cita> citas = citaDAO.obtenerCitasMedico(idMedico);
+    private void cargarHistorialConsultas(int idPaciente) {
+    try {
+        IConexion conexion = new Conexion();
+        ConsultaDAO consultaDAO = new ConsultaDAO(conexion);
+        
+        
+        String especialidad = "";  
+        Timestamp fecha_inicio = null;
+        Timestamp fecha_fin = null;  
+        
+        List<Consulta> historial = consultaDAO.obtenerHistorialConsultas(idPaciente, especialidad, fecha_inicio, fecha_fin);
 
-            // Creamos un modelo para el JList
-            DefaultListModel<String> model = new DefaultListModel<>();
-            jList1.setModel(model);  
 
-            model.removeAllElements();
+        DefaultListModel<String> model = new DefaultListModel<>();
+        jList1.setModel(model);
 
-            if (citas.isEmpty()) {
-                model.addElement("No hay citas programadas.");
-            } else {
-                for (Cita cita : citas) {
-                    String citaInfo = "Paciente: " + cita.getPaciente().getNombre() + " "
-                            + cita.getPaciente().getApellido_paterno() + " - Fecha: "
-                            + cita.getFecha_hora();
-                    model.addElement(citaInfo);  
-                }
+        model.removeAllElements(); 
+
+        if (historial.isEmpty()) {
+            model.addElement("No hay consultas registradas.");
+        } else {
+            for (Consulta consulta : historial) {
+                String consultaInfo = "Consulta ID: " + consulta.getId_consulta() + "\n"
+                        + "Fecha: " + consulta.getFecha_hora() + "\n"
+                        + "Diagnóstico: " + consulta.getDiagnostico() + "\n"
+                        + "Tratamiento: " + consulta.getTratamiento() + "\n"
+                        + "Observaciones: " + consulta.getObservaciones();
+                model.addElement(consultaInfo);  
             }
-
-        } catch (PersistenciaException ex) {
-            JOptionPane.showMessageDialog(this, "Error al obtener las citas del médico.");
         }
+
+    } catch (PersistenciaException ex) {
+        JOptionPane.showMessageDialog(this, "Error al obtener el historial de consultas.");
     }
+}
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -177,7 +186,7 @@ public class HistorialConsultasPaciente extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new HistorialConsultasPaciente().setVisible(true);
+                new HistorialConsultasPaciente(1).setVisible(true);
             }
         });
     }
