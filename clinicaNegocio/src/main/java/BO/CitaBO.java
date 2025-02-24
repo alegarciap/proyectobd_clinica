@@ -79,7 +79,7 @@ public class CitaBO {
     
     public List<CitaDTO> obtenerCitasMedico(int id_medico) throws PersistenciaException, NegocioException {
         if (id_medico <= 0) {
-            throw new NegocioException("ID de venta inválido.");
+            throw new NegocioException("ID de médico inválido.");
         }
         
         try {
@@ -90,8 +90,26 @@ public class CitaBO {
             }
             return citasDTO;
         } catch (PersistenciaException ex) {
-            logger.log(Level.SEVERE, "Error al obtener las ventas.", ex);
-            throw new NegocioException("Hubo un error al obtener las ventas.", ex);
+            logger.log(Level.SEVERE, "Error al obtener las citas.", ex);
+            throw new NegocioException("Hubo un error al obtener las citas.", ex);
+        }
+    }
+    
+    public List<CitaDTO> obtenerCitasPaciente(int id_paciente) throws PersistenciaException, NegocioException {
+        if (id_paciente <= 0) {
+            throw new NegocioException("ID de paciente inválido.");
+        }
+        
+        try {
+            List<Cita> citas = citaDAO.obtenerCitasPaciente(id_paciente);
+            List<CitaDTO> citasDTO = new ArrayList<>();
+            for (Cita cita : citas) {
+                citasDTO.add(Mapper.toDTO(cita));
+            }
+            return citasDTO;
+        } catch (PersistenciaException ex) {
+            logger.log(Level.SEVERE, "Error al obtener las citas.", ex);
+            throw new NegocioException("Hubo un error al obtener las citas.", ex);
         }
     }
     

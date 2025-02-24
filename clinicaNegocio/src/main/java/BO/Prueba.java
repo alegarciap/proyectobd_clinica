@@ -271,7 +271,53 @@ public class Prueba {
         }
         **/
         
-        // prueba para 
+        /**
+        // prueba para obtener las citas programadas de los pacientes
+        try {
+            CitaBO citaBO = new CitaBO(conexion);
+
+            List<CitaDTO> citas = citaBO.obtenerCitasPaciente(6);
+            System.out.println("Citas próximas del páciente: ");
+            for (CitaDTO c : citas) {
+                System.out.println(c);
+            }
+            
+        } catch (NegocioException | PersistenciaException e) {
+            System.out.println("Error al obtener citas del paciente: " + e.getMessage());
+        }
+        **/
+        
+        /**
+        // prueba para obtener las consultas de los pacientes
+        try {
+            ConsultaBO consultaBO = new ConsultaBO(conexion);
+            
+            List<ConsultaDTO> consultas = consultaBO.obtenerHistorialConsultas(5, null, null, null);
+            
+            for (ConsultaDTO c : consultas) {
+                System.out.println(c);
+            }
+            
+        } catch (NegocioException | PersistenciaException e) {
+            System.out.println("Error al obtener consultas del paciente: " + e.getMessage());
+        }
+        **/
+        
+        /**
+        // prueba para obtener el historial de consultas (médicos)
+        try {
+            ConsultaBO consultaBO = new ConsultaBO(conexion);
+            
+            List<ConsultaDTO> consultas = consultaBO.obtenerHistorialConsultasMedicos(2, 5);
+            
+            for (ConsultaDTO c : consultas) {
+                System.out.println(c);
+            }
+            
+        } catch (NegocioException | PersistenciaException e) {
+            System.out.println("Error al obtener el historial de consultas: " + e.getMessage());
+        }
+        **/
     }
     
 }
