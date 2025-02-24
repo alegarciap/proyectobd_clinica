@@ -23,7 +23,6 @@ public class IniciarSesion extends javax.swing.JFrame {
     public IniciarSesion() {
         initComponents();
     }
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -58,6 +57,11 @@ public class IniciarSesion extends javax.swing.JFrame {
         btnRegistrarse.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnRegistrarse.setForeground(new java.awt.Color(255, 255, 255));
         btnRegistrarse.setText("Registrarse");
+        btnRegistrarse.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegistrarseActionPerformed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel1.setText("Ingresa su usuario:");
@@ -116,56 +120,56 @@ public class IniciarSesion extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jTextFieldUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldUsuarioActionPerformed
-        // Obtener los valores de los campos
+        
+    }//GEN-LAST:event_jTextFieldUsuarioActionPerformed
+
+    private void btnIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarSesionActionPerformed
+
         String usuario = jTextFieldUsuario.getText().trim();
         String contrasenia = new String(jPasswordFieldContrasenia.getPassword()).trim();
 
-        // Validar que los campos no estén vacíos
         if (usuario.isEmpty() || contrasenia.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Por favor, ingrese su usuario y contraseña.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
-        // Crear un objeto Usuario con los datos ingresados
+        // Crear el objeto Usuario con los datos ingresados
         Usuario usuarioObj = new Usuario();
         usuarioObj.setNombre(usuario);
         usuarioObj.setContrasenia(contrasenia);
 
         try {
-            // Verificar las credenciales
             IConexion conexion = new Conexion();
             UsuarioDAO usuarioDAO = new UsuarioDAO(conexion);
 
             if (usuarioDAO.iniciarSesion(usuarioObj)) {
-                // Si el inicio de sesión es exitoso, verificar el tipo de usuario
                 String tipoUsuario = usuarioDAO.obtenerTipoUsuario(usuario);
 
-                // Dependiendo del tipo de usuario, redirigir a la ventana correspondiente
                 if (tipoUsuario.equals("medico")) {
-                    // Redirigir a la ventana del médico
                     MenuMedico ventanaMedico = new MenuMedico();
                     ventanaMedico.setVisible(true);
                 } else if (tipoUsuario.equals("paciente")) {
-                    // Redirigir a la ventana del paciente
                     MenuPaciente ventanaPaciente = new MenuPaciente();
                     ventanaPaciente.setVisible(true);
+                } else {
+                    JOptionPane.showMessageDialog(this, "Tipo de usuario desconocido.", "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
                 }
-
-                // Cerrar la ventana de inicio de sesión
                 this.dispose();
-
             } else {
-                // Si las credenciales no son correctas
                 JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos.", "Error", JOptionPane.ERROR_MESSAGE);
             }
         } catch (PersistenciaException ex) {
             JOptionPane.showMessageDialog(this, "Error al verificar el inicio de sesión: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
-    }//GEN-LAST:event_jTextFieldUsuarioActionPerformed
-
-    private void btnIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarSesionActionPerformed
-        // TODO add your handling code here:
     }//GEN-LAST:event_btnIniciarSesionActionPerformed
+
+    private void btnRegistrarseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarseActionPerformed
+        Registrarse registrarse = new Registrarse();
+        registrarse.setVisible(true);
+        this.setVisible(false);
+
+    }//GEN-LAST:event_btnRegistrarseActionPerformed
 
     /**
      * @param args the command line arguments
