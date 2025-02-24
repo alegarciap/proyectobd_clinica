@@ -6,7 +6,7 @@ package DAO;
 
 import entidades.Consulta;
 import excepciones.PersistenciaException;
-import java.util.Date;
+import java.sql.Timestamp;
 import java.util.List;
 
 /**
@@ -16,5 +16,10 @@ import java.util.List;
 public interface IConsultaDAO {
     
     public void realizarConsulta(Consulta consulta) throws PersistenciaException;
+    
+    public List<Consulta> obtenerHistorialConsultas(int idPaciente, String especialidad, Timestamp fechaInicio, Timestamp fechaFin) throws PersistenciaException;
+    
+    public List<Consulta> obtenerHistorialConsultasMedicos(int id_medico, int id_paciente) throws PersistenciaException;
+    
         
 }

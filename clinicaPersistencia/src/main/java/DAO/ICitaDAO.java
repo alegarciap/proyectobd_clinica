@@ -22,4 +22,6 @@ public interface ICitaDAO {
     
     public List<Cita> obtenerCitasMedico(int id_medico) throws PersistenciaException;
     
+    public List<Cita> obtenerCitasPaciente(int id_paciente) throws PersistenciaException;
+    
 }

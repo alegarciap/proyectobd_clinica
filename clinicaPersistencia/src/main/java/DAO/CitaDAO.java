@@ -6,6 +6,7 @@ package DAO;
 
 import conexion.IConexion;
 import entidades.Cita;
+import entidades.Medico;
 import entidades.Paciente;
 import excepciones.PersistenciaException;
 import java.sql.CallableStatement;
@@ -110,6 +111,41 @@ public class CitaDAO implements ICitaDAO {
         } catch (SQLException ex) {
             Logger.getLogger(CitaDAO.class.getName()).log(Level.SEVERE, null, ex);
             throw new PersistenciaException("Error al obtener las citas del médico.", ex);
+        }
+        return citas;
+    }
+
+    @Override
+    public List<Cita> obtenerCitasPaciente(int id_paciente) throws PersistenciaException {
+        List<Cita> citas = new ArrayList<>();
+        String consultaSQL = "select c.id_cita, c.fecha_hora, c.estado, m.nombre, m.apellido_paterno, m.especialidad "
+                + "from citas c "
+                + "inner join medicos m on c.id_medico = m.id_medico "
+                + "where c.id_paciente = ? and c.estado = 'programada' "
+                + "order by c.fecha_hora asc;";
+        
+        try (Connection con = conexion.crearConexion(); 
+                PreparedStatement ps = con.prepareStatement(consultaSQL)) {
+            ps.setInt(1, id_paciente);
+            ResultSet rs = ps.executeQuery();
+            
+            while (rs.next()) {
+                Cita cita = new Cita();
+                cita.setId_cita(rs.getInt("id_cita"));
+                cita.setFecha_hora(rs.getTimestamp("fecha_hora"));
+                cita.setEstado(rs.getString("estado"));
+
+                Medico medico = new Medico();
+                medico.setNombre(rs.getString("nombre"));
+                medico.setApellido_paterno(rs.getString("apellido_paterno"));
+                medico.setEspecialidad(rs.getString("especialidad"));
+
+                cita.setMedico(medico);
+                citas.add(cita);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CitaDAO.class.getName()).log(Level.SEVERE, null, ex);
+            throw new PersistenciaException("Error al obtener las citas del paciente.", ex);
         }
         return citas;
     }
