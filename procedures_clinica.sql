@@ -166,21 +166,100 @@ END //
 DELIMITER ;
 drop procedure agendar_cita_emergencia;
 
-/**
-Procedimiento para que un paciente cancele una cita
-**/
-
-/**
-Procedimiento para dar de baja a un médico
-**/
-
-/**
-Procedimiento para modificar un paciente
-**/
-
+DELIMITER //
+-- Procedimiento para que un paciente cancele una cita
+CREATE PROCEDURE cancelar_cita(
+    IN id_cita_cancelar INT,
+    IN id_paciente_cancelacion INT
+)
+BEGIN
+    DECLARE cita_existe INT;
+    DECLARE cita_estado VARCHAR(20);
     
+    START TRANSACTION;
     
+    -- Verificar que la cita existe y pertenece al paciente
+    SELECT COUNT(*), estado INTO cita_existe, cita_estado
+    FROM citas
+    WHERE id_cita = id_cita_cancelar
+    AND id_paciente = id_paciente_cancelacion;
     
+    IF cita_existe = 0 THEN
+        ROLLBACK;
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'La cita no existe o no pertenece al paciente.';
+    END IF;
     
+    -- Verificar que la cita no haya pasado
+    IF cita_estado = 'realizada' THEN
+        ROLLBACK;
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'No se puede cancelar una cita que ya se realizó.';
+    END IF;
+    
+    -- Cancelar la cita
+    UPDATE citas SET estado = 'cancelada' WHERE id_cita = id_cita_cancelar;
+    
+    COMMIT;
+END //
 
+DELIMITER //
+-- Procedimiento para dar de baja a un médico
+CREATE PROCEDURE dar_de_baja_medico(
+    IN id_medico_baja INT
+)
+BEGIN
+    DECLARE medico_existe INT;
+    
+    START TRANSACTION;
+    
+    -- Verificar que el médico existe
+    SELECT COUNT(*) INTO medico_existe
+    FROM medicos
+    WHERE id_medico = id_medico_baja;
+    
+    IF medico_existe = 0 THEN
+        ROLLBACK;
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'El médico no existe.';
+    END IF;
+    
+    -- Dar de baja al médico
+    UPDATE medicos SET estado = 'inactivo' WHERE id_medico = id_medico_baja;
+    
+    COMMIT;
+END //
 
+DELIMITER //
+-- Procedimiento para modificar un paciente
+CREATE PROCEDURE modificar_paciente(
+    IN id_paciente_modificar INT,
+    IN nuevo_nombre VARCHAR(100),
+    IN nuevo_apellido VARCHAR(100),
+    IN nuevo_telefono VARCHAR(15),
+    IN nuevo_email VARCHAR(100)
+)
+BEGIN
+    DECLARE paciente_existe INT;
+    
+    START TRANSACTION;
+    
+    -- Verificar que el paciente existe
+    SELECT COUNT(*) INTO paciente_existe
+    FROM pacientes
+    WHERE id_paciente = id_paciente_modificar;
+    
+    IF paciente_existe = 0 THEN
+        ROLLBACK;
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'El paciente no existe.';
+    END IF;
+    
+    -- Modificar los datos del paciente
+    UPDATE pacientes
+    SET nombre = nuevo_nombre,
+        apellido = nuevo_apellido,
+        telefono = nuevo_telefono,
+        email = nuevo_email
+    WHERE id_paciente = id_paciente_modificar;
+    
+    COMMIT;
+END //
+
+DELIMITER ;

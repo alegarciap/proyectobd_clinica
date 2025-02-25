@@ -88,13 +88,8 @@ BEGIN
 END //
 DELIMITER ;
 
+DROP TRIGGER IF EXISTS auditoria_agendar_cita;
+DROP TRIGGER IF EXISTS auditoria_cancelar_citas;
+DROP TRIGGER IF EXISTS auditoria_consulta;
+DROP TRIGGER IF EXISTS evitar_actualizacion_pacientes;
 
-
-
-
-
-
-
-
-
-    
