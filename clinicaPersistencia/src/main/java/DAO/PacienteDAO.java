@@ -22,10 +22,10 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author alega
+ * @author Abraham Coronel
  */
 public class PacienteDAO implements IPacienteDAO {
-    
+
     IConexion conexion;
 
     public PacienteDAO(IConexion conexion) {
@@ -77,15 +77,14 @@ public class PacienteDAO implements IPacienteDAO {
             throw new PersistenciaException("Error: No se pudo registrar el paciente.", ex);
         }
     }
-    
+
     @Override
     public Paciente obtenerPaciente(int id_usuario) throws SQLException, PersistenciaException {
         String comandoSQL = "select * from pacientes p "
                 + "join usuarios u on p.id_paciente = u.id_usuario "
-                + "where p.id_paciente = ?"; 
+                + "where p.id_paciente = ?";
 
-        try (Connection con = conexion.crearConexion(); 
-                PreparedStatement st = con.prepareStatement(comandoSQL)) {
+        try (Connection con = conexion.crearConexion(); PreparedStatement st = con.prepareStatement(comandoSQL)) {
             st.setInt(1, id_usuario);
 
             try (ResultSet rs = st.executeQuery()) {
@@ -99,24 +98,24 @@ public class PacienteDAO implements IPacienteDAO {
                     paciente.setFecha_nacimiento(rs.getDate("fecha_nacimiento"));
                     paciente.setTelefono(rs.getString("telefono"));
                     paciente.setCorreo(rs.getString("correo"));
-                    
+
                     Usuario usuario = new Usuario();
                     usuario.setId_usuario(rs.getInt("id_usuario"));
                     usuario.setNombre(rs.getString("nombre"));
-                    usuario.setContrasenia(rs.getString("contrasenia"));  
-                    
+                    usuario.setContrasenia(rs.getString("contrasenia"));
+
                     paciente.setUsuario(usuario);
 
-                    return paciente; 
+                    return paciente;
                 }
             }
         } catch (SQLException ex) {
             Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
             throw new PersistenciaException("Error al obtener paciente.", ex);
         }
-        return null; 
+        return null;
     }
-    
+
     @Override
     public void actualizarPaciente(Paciente paciente) throws PersistenciaException {
         String comandoSQL = "call actualizar_paciente(?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -127,8 +126,7 @@ public class PacienteDAO implements IPacienteDAO {
             contraseniaEncriptada = getMD5(paciente.getUsuario().getContrasenia());
         }
 
-        try (Connection con = this.conexion.crearConexion(); 
-                CallableStatement cb = con.prepareCall(comandoSQL)) {
+        try (Connection con = this.conexion.crearConexion(); CallableStatement cb = con.prepareCall(comandoSQL)) {
             cb.setInt(1, paciente.getId_paciente());
             cb.setString(2, paciente.getNombre());
             cb.setString(3, paciente.getApellido_paterno());
@@ -136,30 +134,30 @@ public class PacienteDAO implements IPacienteDAO {
             cb.setString(5, paciente.getDireccion());
             cb.setString(6, paciente.getTelefono());
             cb.setString(7, paciente.getCorreo());
-            cb.setString(8, paciente.getUsuario().getNombre()); 
+            cb.setString(8, paciente.getUsuario().getNombre());
             cb.setString(9, contraseniaEncriptada);
-            
+
             cb.executeUpdate();
         } catch (SQLException e) {
             Logger.getLogger(PacienteDAO.class.getName()).log(Level.SEVERE, null, e);
             throw new PersistenciaException("Error al actualizar los datos del paciente.", e);
         }
     }
-    
+
     public static String getMD5(String input) {
         try {
             MessageDigest md = MessageDigest.getInstance("MD5");
             byte[] hashBytes = md.digest(input.getBytes());
-            
+
             StringBuilder hexString = new StringBuilder();
             for (byte b : hashBytes) {
                 hexString.append(String.format("%02x", b));
             }
-            
+
             return hexString.toString();
         } catch (NoSuchAlgorithmException e) {
             throw new RuntimeException("Error al calcular MD5.", e);
         }
     }
-    
+
 }

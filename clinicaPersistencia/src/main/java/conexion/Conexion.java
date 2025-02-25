@@ -18,8 +18,8 @@ import java.util.logging.Logger;
 public class Conexion implements IConexion {
     
     final String URL = "jdbc:mysql://127.0.0.1:3306/clinica";
-    final String USER = "alegarciap"; 
-    final String PASS = "sasden-juxhu8-kydsaF";
+    final String USER = "root"; 
+    final String PASS = "2005";
 
     @Override
     public Connection crearConexion() throws PersistenciaException{
