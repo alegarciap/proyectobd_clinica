@@ -8,6 +8,7 @@ import DAO.IUsuarioDAO;
 import DAO.UsuarioDAO;
 import DTO.UsuarioDTO;
 import conexion.IConexion;
+import entidades.Usuario;
 import excepciones.NegocioException;
 import excepciones.PersistenciaException;
 import java.util.logging.Level;
@@ -16,43 +17,48 @@ import mapper.Mapper;
 
 /**
  *
- * @author alega
+ * @author Abraham Coronel
  */
 public class UsuarioBO {
-    
+
     private static final Logger logger = Logger.getLogger(UsuarioBO.class.getName());
     private final IUsuarioDAO usuarioDAO;
-    
+
     public UsuarioBO(IConexion conexion) {
         this.usuarioDAO = new UsuarioDAO(conexion);
     }
-    
+
     public boolean iniciarSesion(UsuarioDTO usuarioDTO) throws PersistenciaException, NegocioException {
         if (usuarioDTO.getNombre() == null || usuarioDTO.getNombre().trim().isEmpty()) {
-            throw new NegocioException("El nombe de usuario no puede estar vacío");
+            throw new NegocioException("El nombre de usuario no puede estar vacío");
         }
-        
+
         if (usuarioDTO.getContrasenia() == null || usuarioDTO.getContrasenia().trim().isEmpty() || usuarioDTO.getContrasenia().length() < 8) {
             throw new NegocioException("La contraseña debe tener mínimo 8 caracteres");
         }
-        
+
         try {
-            return usuarioDAO.iniciarSesion(Mapper.toEntity(usuarioDTO));
+            Usuario usuarioEntity = Mapper.toEntity(usuarioDTO);
+            boolean loginOk = usuarioDAO.iniciarSesion(usuarioEntity);
+            if (loginOk) {
+                usuarioDTO.setId_usuario(usuarioEntity.getId_usuario());
+            }
+            return loginOk;
         } catch (PersistenciaException ex) {
             logger.log(Level.SEVERE, "Error al iniciar sesión.", ex);
-            throw new NegocioException("Ocurrió un error al iniciar sesión.", ex); 
+            throw new NegocioException("Ocurrió un error al iniciar sesión.", ex);
         }
     }
-    
+
     public String obtenerTipoUsuario(int id_usuario) throws PersistenciaException, NegocioException {
         // validaciones necesarias
-        
+
         try {
             return usuarioDAO.obtenerTipoUsuario(id_usuario);
         } catch (PersistenciaException ex) {
             logger.log(Level.SEVERE, "Error al iniciar sesión.", ex);
-            throw new NegocioException("Ocurrió un error al obtener el tipo usuario.", ex); 
+            throw new NegocioException("Ocurrió un error al obtener el tipo usuario.", ex);
         }
     }
-    
+
 }
