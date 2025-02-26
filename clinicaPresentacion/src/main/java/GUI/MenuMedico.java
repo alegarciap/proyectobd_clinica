@@ -4,23 +4,41 @@
  */
 package GUI;
 
+import BO.UsuarioBO;
+import conexion.Conexion;
+import excepciones.NegocioException;
+
 /**
  *
- * @author alfre
+ * @author Abraham Coronel Bringas
  */
 public class MenuMedico extends javax.swing.JFrame {
 
-    /**
-     * Creates new form MenuMedico
-     */
-    public MenuMedico() {
+    private UsuarioBO usuarioBO;
+    private int idUsuario;
+
+    public MenuMedico(UsuarioBO usuarioBO, int idUsuario) {
+        this.usuarioBO = usuarioBO;
+        this.idUsuario = idUsuario;
         initComponents();
         cargarNombreUsuario();
     }
 
+    public MenuMedico() {
+        this.usuarioBO = new UsuarioBO(new Conexion()); // Asegúrate de que 'Conexion' implemente 'IConexion'
+        this.idUsuario = 1; // O cualquier ID de usuario predeterminado
+        initComponents();
+        cargarNombreUsuario();
+    }
+    
+
     private void cargarNombreUsuario() {
-        String nombreUsuario = "Nombre del usuario";
-        jTextField1.setText(nombreUsuario);
+        try {
+            String nombreUsuario = usuarioBO.obtenerNombreUsuario(idUsuario);
+            jTextField1.setText(nombreUsuario);
+        } catch (NegocioException e) {
+            jTextField1.setText("Error al cargar nombre");
+        }
     }
 
     /**
@@ -99,6 +117,9 @@ public class MenuMedico extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel2.setText("Usuario:");
 
+        jTextField1.setEditable(false);
+        jTextField1.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -142,7 +163,7 @@ public class MenuMedico extends javax.swing.JFrame {
                 .addComponent(btnHistorialDeConsultas)
                 .addGap(18, 18, 18)
                 .addComponent(btnConsultarAgenda)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 104, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 100, Short.MAX_VALUE)
                 .addComponent(btnCerrarSesion)
                 .addGap(23, 23, 23))
         );
@@ -151,10 +172,10 @@ public class MenuMedico extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnActualizarEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarEstadoActionPerformed
-        int idMedico = 5; 
+        int idMedico = 5;   
         EstadoMedico ventanaActualizarEstado = new EstadoMedico(idMedico);
         ventanaActualizarEstado.setVisible(true);
-        this.setVisible(false); 
+        this.setVisible(false);
     }//GEN-LAST:event_btnActualizarEstadoActionPerformed
 
     private void btnMiPerfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMiPerfilActionPerformed
@@ -185,30 +206,7 @@ public class MenuMedico extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MenuMedico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MenuMedico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MenuMedico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MenuMedico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
 
-        /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new MenuMedico().setVisible(true);

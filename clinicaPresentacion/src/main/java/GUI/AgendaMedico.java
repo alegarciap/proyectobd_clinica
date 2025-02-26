@@ -6,7 +6,7 @@ package GUI;
 
 /**
  *
- * @author PC Gamer
+ * @author Abraham Coronel Bringas
  */
 public class AgendaMedico extends javax.swing.JFrame {
 
@@ -15,6 +15,15 @@ public class AgendaMedico extends javax.swing.JFrame {
      */
     public AgendaMedico() {
         initComponents();
+    }
+    
+    private void regresar() {
+        // Cerrar la ventana actual
+        this.setVisible(false);
+
+        // Crear la instancia de la nueva ventana
+        MenuMedico menumedico = new MenuMedico(); 
+        menumedico.setVisible(true); 
     }
 
     /**
@@ -46,6 +55,11 @@ public class AgendaMedico extends javax.swing.JFrame {
         btnRegresar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnRegresar.setForeground(new java.awt.Color(255, 255, 255));
         btnRegresar.setText("Regresar");
+        btnRegresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegresarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -85,6 +99,10 @@ public class AgendaMedico extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
+        regresar();
+    }//GEN-LAST:event_btnRegresarActionPerformed
 
     /**
      * @param args the command line arguments

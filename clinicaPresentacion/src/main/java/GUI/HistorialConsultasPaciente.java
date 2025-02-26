@@ -30,6 +30,15 @@ public class HistorialConsultasPaciente extends javax.swing.JFrame {
         this.idMedico = idMedico;  
         cargarHistorialConsultas(idPaciente); 
     }
+    
+    private void regresar() {
+        // Cerrar la ventana actual
+        this.setVisible(false);
+
+        // Crear la instancia de la nueva ventana
+        MenuPaciente menupaciente = new MenuPaciente();
+        menupaciente.setVisible(true);
+    }
 
     /**
      * Método para cargar las citas del médico
@@ -68,6 +77,8 @@ public class HistorialConsultasPaciente extends javax.swing.JFrame {
     } catch (PersistenciaException ex) {
         JOptionPane.showMessageDialog(this, "Error al obtener el historial de consultas.");
     }
+    
+    
 }
 
 
@@ -153,7 +164,7 @@ public class HistorialConsultasPaciente extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-        this.dispose();
+        this.regresar();
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     /**

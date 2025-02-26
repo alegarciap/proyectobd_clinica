@@ -16,6 +16,15 @@ public class ConsultasMedico extends javax.swing.JFrame {
     public ConsultasMedico() {
         initComponents();
     }
+    
+    private void regresar() {
+        // Cerrar la ventana actual
+        this.setVisible(false);
+
+        // Crear la instancia de la nueva ventana
+        MenuMedico menumedico = new MenuMedico(); 
+        menumedico.setVisible(true); 
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -94,7 +103,7 @@ public class ConsultasMedico extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-        // TODO add your handling code here:
+        regresar();
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     /**

@@ -46,6 +46,15 @@ public class PerfilPaciente extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Error al cargar los datos del paciente.");
         }
     }
+    
+    private void regresar() {
+        // Cerrar la ventana actual
+        this.setVisible(false);
+
+        // Crear la instancia de la nueva ventana
+        MenuPaciente menupaciente = new MenuPaciente();
+        menupaciente.setVisible(true);
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -224,7 +233,7 @@ public class PerfilPaciente extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField6ActionPerformed
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-        dispose();
+        regresar();
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     /**

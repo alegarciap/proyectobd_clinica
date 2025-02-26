@@ -56,6 +56,15 @@ public class EstadoMedico extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Error al activar el médico: " + ex.getMessage());
         }
     }
+    
+    private void regresar() {
+        // Cerrar la ventana actual
+        this.setVisible(false);
+
+        // Crear la instancia de la nueva ventana
+        MenuMedico menumedico = new MenuMedico(); 
+        menumedico.setVisible(true); 
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -157,7 +166,7 @@ public class EstadoMedico extends javax.swing.JFrame {
     }//GEN-LAST:event_btnActivoActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        this.dispose();
+        regresar();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void btnInactivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInactivoActionPerformed

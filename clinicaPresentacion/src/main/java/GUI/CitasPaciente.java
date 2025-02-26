@@ -15,7 +15,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author alfre
+ * @author Abraham Coronel Bringas
  */
 public class CitasPaciente extends javax.swing.JFrame {
 
@@ -49,6 +49,15 @@ public class CitasPaciente extends javax.swing.JFrame {
     public CitasPaciente(int id_medico) {
         initComponents();
         cargarCita(id_medico);
+    }
+    
+    private void regresar() {
+        // Cerrar la ventana actual
+        this.setVisible(false);
+
+        // Crear la instancia de la nueva ventana
+        MenuPaciente menupaciente = new MenuPaciente();
+        menupaciente.setVisible(true);
     }
 
     /**
@@ -148,7 +157,7 @@ public class CitasPaciente extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-        dispose();
+        regresar();
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     /**

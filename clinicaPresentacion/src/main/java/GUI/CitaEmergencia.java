@@ -16,6 +16,15 @@ public class CitaEmergencia extends javax.swing.JFrame {
     public CitaEmergencia() {
         initComponents();
     }
+    
+    private void regresar() {
+        // Cerrar la ventana actual
+        this.setVisible(false);
+
+        // Crear la instancia de la nueva ventana
+        MenuPaciente menupaciente = new MenuPaciente();
+        menupaciente.setVisible(true);
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -110,7 +119,7 @@ public class CitaEmergencia extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField2ActionPerformed
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-        // TODO add your handling code here:
+        regresar();
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     /**

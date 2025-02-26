@@ -6,7 +6,7 @@ package GUI;
 
 /**
  *
- * @author PC Gamer
+ * @author Abraham Coronel Bringas
  */
 public class EliminarCita extends javax.swing.JFrame {
 
@@ -15,6 +15,15 @@ public class EliminarCita extends javax.swing.JFrame {
      */
     public EliminarCita() {
         initComponents();
+    }
+    
+    private void regresar() {
+        // Cerrar la ventana actual
+        this.setVisible(false);
+
+        // Crear la instancia de la nueva ventana
+        MenuPaciente menupaciente = new MenuPaciente();
+        menupaciente.setVisible(true);
     }
 
     /**
@@ -101,7 +110,7 @@ public class EliminarCita extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-        // TODO add your handling code here:
+        regresar();
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     /**

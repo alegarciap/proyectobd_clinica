@@ -6,7 +6,7 @@ package GUI;
 
 /**
  *
- * @author alfre
+ * @author Abraham Coronel
  */
 public class MenuPaciente extends javax.swing.JFrame {
 
