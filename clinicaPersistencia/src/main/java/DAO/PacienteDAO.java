@@ -21,17 +21,30 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
+ * La clase PacienteDAO proporciona métodos para manejar la persistencia de datos de pacientes 
+ * y usuarios en una base de datos. Implementa la interfaz IPacienteDAO.
+ * 
  * @author Abraham Coronel
  */
 public class PacienteDAO implements IPacienteDAO {
 
     IConexion conexion;
 
+    /**
+     * Constructor de la clase PacienteDAO.
+     * 
+     * @param conexion La conexión a la base de datos.
+     */
     public PacienteDAO(IConexion conexion) {
         this.conexion = conexion;
     }
 
+    /**
+     * Registra un nuevo paciente en la base de datos.
+     * 
+     * @param paciente El objeto Paciente que contiene la información del paciente a registrar.
+     * @throws PersistenciaException Si ocurre un error al registrar el paciente en la base de datos.
+     */
     @Override
     public void registrarPaciente(Paciente paciente) throws PersistenciaException {
         String comandoSQLUsuario = "insert into usuarios(id_usuario, nombre, contrasenia) values (?,?,?);";
@@ -78,6 +91,14 @@ public class PacienteDAO implements IPacienteDAO {
         }
     }
 
+    /**
+     * Obtiene un paciente de la base de datos según el ID del usuario.
+     * 
+     * @param id_usuario El ID del usuario del paciente a obtener.
+     * @return Un objeto Paciente que contiene la información del paciente, o null si no se encuentra.
+     * @throws SQLException Si ocurre un error de SQL al obtener el paciente.
+     * @throws PersistenciaException Si ocurre un error al acceder a los datos de persistencia.
+     */
     @Override
     public Paciente obtenerPaciente(int id_usuario) throws SQLException, PersistenciaException {
         String comandoSQL = "select * from pacientes p "
@@ -116,6 +137,12 @@ public class PacienteDAO implements IPacienteDAO {
         return null;
     }
 
+    /**
+     * Actualiza la información de un paciente en la base de datos.
+     * 
+     * @param paciente El objeto Paciente que contiene la nueva información del paciente.
+     * @throws PersistenciaException Si ocurre un error al actualizar los datos del paciente.
+     */
     @Override
     public void actualizarPaciente(Paciente paciente) throws PersistenciaException {
         String comandoSQL = "call actualizar_paciente(?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -144,6 +171,12 @@ public class PacienteDAO implements IPacienteDAO {
         }
     }
 
+    /**
+     * Calcula el hash MD5 de una cadena de texto.
+     * 
+     * @param input La cadena de texto a encriptar.
+     * @return La representación en formato hexadecimal del hash MD5.
+     */
     public static String getMD5(String input) {
         try {
             MessageDigest md = MessageDigest.getInstance("MD5");
@@ -159,5 +192,4 @@ public class PacienteDAO implements IPacienteDAO {
             throw new RuntimeException("Error al calcular MD5.", e);
         }
     }
-
 }

@@ -17,17 +17,33 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
+ * Implementación de la interfaz IMedicoDAO para la gestión de médicos en el sistema.
+ * 
+ * Proporciona métodos para obtener información de médicos, así como activarlos y desactivarlos.
+ * 
  * @author Abraham Coronel
  */
 public class MedicoDAO implements IMedicoDAO {
     
     IConexion conexion;
 
+    /**
+     * Constructor que recibe una conexión a la base de datos.
+     * 
+     * @param conexion Objeto de conexión a la base de datos.
+     */
     public MedicoDAO(IConexion conexion) {
         this.conexion = conexion;
     }
     
+    /**
+     * Obtiene la información de un médico a partir de su ID de usuario.
+     * 
+     * @param id_usuario ID del usuario asociado al médico.
+     * @return Objeto Medico con la información obtenida.
+     * @throws SQLException Si ocurre un error en la consulta a la base de datos.
+     * @throws PersistenciaException Si ocurre un error en la persistencia de datos.
+     */
     @Override
     public Medico obtenerMedico(int id_usuario) throws SQLException, PersistenciaException {
         String comandoSQL = "select * from medicos m "
@@ -66,6 +82,13 @@ public class MedicoDAO implements IMedicoDAO {
         return null;
     }
 
+    /**
+     * Desactiva el registro de un médico en el sistema.
+     * 
+     * @param medico Objeto Medico que se desea desactivar.
+     * @throws SQLException Si ocurre un error en la consulta a la base de datos.
+     * @throws PersistenciaException Si ocurre un error en la persistencia de datos.
+     */
     @Override
     public void desactivarMedico(Medico medico) throws SQLException, PersistenciaException {
         String comandoSQL = "call desactivar_medico(?);";
@@ -81,6 +104,13 @@ public class MedicoDAO implements IMedicoDAO {
         }
     }
 
+    /**
+     * Activa el registro de un médico en el sistema.
+     * 
+     * @param medico Objeto Medico que se desea activar.
+     * @throws SQLException Si ocurre un error en la consulta a la base de datos.
+     * @throws PersistenciaException Si ocurre un error en la persistencia de datos.
+     */
     @Override
     public void activarMedico(Medico medico) throws SQLException, PersistenciaException {
         String comandoSQL = "call activar_medico(?);";

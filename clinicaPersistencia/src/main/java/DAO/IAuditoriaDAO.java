@@ -5,7 +5,10 @@
 package DAO;
 
 /**
- *
+ * Interfaz para la gestión de auditorías en el sistema.
+ * 
+ * Define los métodos necesarios para registrar y consultar eventos de auditoría.
+ * 
  * @author Abraham Coronel
  */
 public interface IAuditoriaDAO {

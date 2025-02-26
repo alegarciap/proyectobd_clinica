@@ -20,17 +20,33 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
+ * Clase de acceso a datos para gestionar las citas médicas en la base de datos.
+ * Implementa la interfaz {@code ICitaDAO} y permite realizar operaciones como agendar,
+ * cancelar y obtener citas de médicos y pacientes.
+ * 
+ * Utiliza procedimientos almacenados y consultas SQL para interactuar con la base de datos.
+ * 
  * @author alega
  */
 public class CitaDAO implements ICitaDAO {
     
-    IConexion conexion;
+    private final IConexion conexion;
 
+    /**
+     * Constructor de la clase CitaDAO.
+     * 
+     * @param conexion Objeto que gestiona la conexión con la base de datos.
+     */
     public CitaDAO(IConexion conexion) {
         this.conexion = conexion;
     }
 
+    /**
+     * Agenda una nueva cita médica en la base de datos.
+     * 
+     * @param cita Objeto {@code Cita} que contiene los datos de la cita a agendar.
+     * @throws PersistenciaException Si ocurre un error al intentar agendar la cita.
+     */
     @Override
     public void agendarCita(Cita cita) throws PersistenciaException {      
         String comandoSQL = "call agendar_cita(?,?,?);";
@@ -48,6 +64,12 @@ public class CitaDAO implements ICitaDAO {
         }
     }
 
+    /**
+     * Agenda una cita de emergencia para un paciente.
+     * 
+     * @param cita Objeto {@code Cita} que contiene la información del paciente.
+     * @throws PersistenciaException Si ocurre un error al intentar agendar la cita de emergencia.
+     */
     @Override
     public void agendarCitaEmergencia(Cita cita) throws PersistenciaException {
         String comandoSQL = "call agendar_cita_emergencia(?);";
@@ -63,6 +85,12 @@ public class CitaDAO implements ICitaDAO {
         }
     }
 
+    /**
+     * Cancela una cita médica previamente agendada.
+     * 
+     * @param cita Objeto {@code Cita} que contiene el identificador de la cita y del paciente.
+     * @throws PersistenciaException Si ocurre un error al intentar cancelar la cita.
+     */
     @Override
     public void cancelarCita(Cita cita) throws PersistenciaException {
         String comandoSQL = "call cancelar_cita(?,?);";
@@ -79,6 +107,13 @@ public class CitaDAO implements ICitaDAO {
         }
     }
 
+    /**
+     * Obtiene la lista de citas programadas para un médico específico.
+     * 
+     * @param id_medico Identificador del médico cuyas citas se desean obtener.
+     * @return Lista de objetos {@code Cita} asociados al médico.
+     * @throws PersistenciaException Si ocurre un error al obtener las citas del médico.
+     */
     @Override
     public List<Cita> obtenerCitasMedico(int id_medico) throws PersistenciaException {
         List<Cita> citas = new ArrayList<>();
@@ -115,6 +150,13 @@ public class CitaDAO implements ICitaDAO {
         return citas;
     }
 
+    /**
+     * Obtiene la lista de citas programadas para un paciente específico.
+     * 
+     * @param id_paciente Identificador del paciente cuyas citas se desean obtener.
+     * @return Lista de objetos {@code Cita} asociados al paciente.
+     * @throws PersistenciaException Si ocurre un error al obtener las citas del paciente.
+     */
     @Override
     public List<Cita> obtenerCitasPaciente(int id_paciente) throws PersistenciaException {
         List<Cita> citas = new ArrayList<>();

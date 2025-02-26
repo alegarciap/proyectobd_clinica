@@ -18,17 +18,31 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
+ * La clase UsuarioDAO proporciona métodos para manejar la persistencia de datos de usuarios
+ * en una base de datos. Implementa la interfaz IUsuarioDAO.
+ * 
  * @author Abraham Coronel
  */
 public class UsuarioDAO implements IUsuarioDAO {
 
     IConexion conexion;
 
+    /**
+     * Constructor de la clase UsuarioDAO.
+     * 
+     * @param conexion La conexión a la base de datos.
+     */
     public UsuarioDAO(IConexion conexion) {
         this.conexion = conexion;
     }
 
+    /**
+     * Inicia sesión de un usuario validando su nombre y contraseña.
+     * 
+     * @param usuario El objeto Usuario que contiene el nombre y la contraseña a validar.
+     * @return true si el inicio de sesión es exitoso, false de lo contrario.
+     * @throws PersistenciaException Si ocurre un error al intentar iniciar sesión.
+     */
     @Override
     public boolean iniciarSesion(Usuario usuario) throws PersistenciaException {
         String comandoSQL = "select * from usuarios where nombre = ?;";
@@ -54,6 +68,13 @@ public class UsuarioDAO implements IUsuarioDAO {
         return false;
     }
 
+    /**
+     * Obtiene el tipo de usuario asociado a un ID de usuario.
+     * 
+     * @param id_usuario El ID del usuario cuyo tipo se desea obtener.
+     * @return El tipo de usuario como una cadena.
+     * @throws PersistenciaException Si ocurre un error al obtener el tipo de usuario.
+     */
     @Override
     public String obtenerTipoUsuario(int id_usuario) throws PersistenciaException {
         String tipo_usuario = "";
@@ -73,6 +94,13 @@ public class UsuarioDAO implements IUsuarioDAO {
         return tipo_usuario;
     }
 
+    /**
+     * Obtiene el nombre de un usuario según su ID.
+     * 
+     * @param idUsuario El ID del usuario cuyo nombre se desea obtener.
+     * @return El nombre del usuario como una cadena.
+     * @throws PersistenciaException Si ocurre un error al obtener el nombre del usuario o si no se encuentra el usuario.
+     */
     @Override
     public String obtenerNombreUsuario(int idUsuario) throws PersistenciaException {
         String comandoSQL = "SELECT nombre FROM usuarios WHERE id_usuario = ?;";
@@ -93,5 +121,4 @@ public class UsuarioDAO implements IUsuarioDAO {
             throw new PersistenciaException("Error al obtener el nombre del usuario", ex);
         }
     }
-
 }

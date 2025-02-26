@@ -9,35 +9,42 @@ import entidades.Cita;
 import entidades.Consulta;
 import entidades.Medico;
 import excepciones.PersistenciaException;
-import java.sql.CallableStatement;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Timestamp;
-import java.sql.Types;
+import java.sql.*;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
- * @author alega
+ * Implementación de la interfaz IConsultaDAO para gestionar consultas médicas
+ * en la base de datos.
  */
-public class ConsultaDAO implements IConsultaDAO{
+public class ConsultaDAO implements IConsultaDAO {
     
-    IConexion conexion;
+    /**
+     * Objeto de conexión a la base de datos.
+     */
+    private final IConexion conexion;
 
+    /**
+     * Constructor de la clase ConsultaDAO.
+     * 
+     * @param conexion Objeto de conexión a la base de datos.
+     */
     public ConsultaDAO(IConexion conexion) {
         this.conexion = conexion;
     }
 
+    /**
+     * Inserta una nueva consulta médica en la base de datos.
+     * 
+     * @param consulta Objeto Consulta con la información a registrar.
+     * @throws PersistenciaException Si ocurre un error en la operación.
+     */
     @Override
     public void realizarConsulta(Consulta consulta) throws PersistenciaException {
-        String comandoSQL = "insert into consultas (fecha_hora, diagnostico, tratamiento, observaciones, id_cita) "
-                + "values (?, ?, ?, ?, ?);";
+        String comandoSQL = "INSERT INTO consultas (fecha_hora, diagnostico, tratamiento, observaciones, id_cita) "
+                + "VALUES (?, ?, ?, ?, ?);";
         
         try (Connection con = conexion.crearConexion(); 
                 PreparedStatement ps = con.prepareStatement(comandoSQL)) {
@@ -54,16 +61,27 @@ public class ConsultaDAO implements IConsultaDAO{
         }
     }
 
+    /**
+     * Obtiene el historial de consultas de un paciente en un rango de fechas y
+     * opcionalmente filtrado por especialidad.
+     * 
+     * @param id_paciente ID del paciente.
+     * @param especialidad Especialidad médica (puede ser nulo o vacío).
+     * @param fecha_inicio Fecha de inicio del historial (puede ser nula).
+     * @param fecha_fin Fecha de fin del historial (puede ser nula).
+     * @return Lista de consultas del paciente.
+     * @throws PersistenciaException Si ocurre un error en la operación.
+     */
     @Override
     public List<Consulta> obtenerHistorialConsultas(int id_paciente, String especialidad, Timestamp fecha_inicio, Timestamp fecha_fin) throws PersistenciaException {
         List<Consulta> historialConsultas = new ArrayList<>();
-        String comandoSQL = "select id_consulta, fecha_hora, diagnostico, tratamiento, observaciones, nombre, apellido_paterno, especialidad "
-                + "from vista_historial_consultas_p "
-                + "where id_paciente = ? "
-                + (especialidad != null && !especialidad.isEmpty() ? "and especialidad = ? " : "")
-                + (fecha_inicio != null ? "and fecha_hora >= ? " : "")
-                + (fecha_fin != null ? "and fecha_hora <= ? " : "")
-                + "order by fecha_hora desc;";
+        String comandoSQL = "SELECT id_consulta, fecha_hora, diagnostico, tratamiento, observaciones, nombre, apellido_paterno, especialidad "
+                + "FROM vista_historial_consultas_p "
+                + "WHERE id_paciente = ? "
+                + (especialidad != null && !especialidad.isEmpty() ? "AND especialidad = ? " : "")
+                + (fecha_inicio != null ? "AND fecha_hora >= ? " : "")
+                + (fecha_fin != null ? "AND fecha_hora <= ? " : "")
+                + "ORDER BY fecha_hora DESC;";
         
         try (Connection con = conexion.crearConexion(); 
                 PreparedStatement ps = con.prepareStatement(comandoSQL)) {
@@ -106,12 +124,20 @@ public class ConsultaDAO implements IConsultaDAO{
         return historialConsultas;
     }
     
+    /**
+     * Obtiene el historial de consultas realizadas por un médico a un paciente.
+     * 
+     * @param id_medico ID del médico.
+     * @param id_paciente ID del paciente.
+     * @return Lista de consultas realizadas por el médico al paciente.
+     * @throws PersistenciaException Si ocurre un error en la operación.
+     */
     @Override
     public List<Consulta> obtenerHistorialConsultasMedicos(int id_medico, int id_paciente) throws PersistenciaException {
         List<Consulta> historialConsultas = new ArrayList<>();
-        String comandoSQL = "select id_consulta, fecha_hora, diagnostico, tratamiento, observaciones "
-                + "from vista_historial_consultas_m where id_medico = ? and id_paciente = ? "
-                + "order by fecha_hora desc";
+        String comandoSQL = "SELECT id_consulta, fecha_hora, diagnostico, tratamiento, observaciones "
+                + "FROM vista_historial_consultas_m WHERE id_medico = ? AND id_paciente = ? "
+                + "ORDER BY fecha_hora DESC";
         
         try (Connection con = conexion.crearConexion(); 
                 PreparedStatement ps = con.prepareStatement(comandoSQL)) {
@@ -136,5 +162,4 @@ public class ConsultaDAO implements IConsultaDAO{
         }
         return historialConsultas;
     }
-    
 }

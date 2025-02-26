@@ -7,17 +7,24 @@ package DAO;
 import conexion.IConexion;
 
 /**
- *
+ * Implementación de la interfaz IHorariosAtencionDAO para gestionar los horarios de atención médica.
+ * 
  * @author Abraham Coronel
  */
 public class HorariosAtencionDAO implements IHorariosAtencionDAO {
     
-    IConexion conexion;
+    /**
+     * Objeto de conexión a la base de datos.
+     */
+    private final IConexion conexion;
 
+    /**
+     * Constructor de la clase HorariosAtencionDAO.
+     * 
+     * @param conexion Objeto de conexión a la base de datos.
+     */
     public HorariosAtencionDAO(IConexion conexion) {
         this.conexion = conexion;
     }
-    
-    
     
 }
