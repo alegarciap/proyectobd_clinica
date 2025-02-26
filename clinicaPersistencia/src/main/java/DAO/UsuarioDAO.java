@@ -19,7 +19,7 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author alega
+ * @author Abraham Coronel
  */
 public class UsuarioDAO implements IUsuarioDAO {
 
@@ -71,6 +71,27 @@ public class UsuarioDAO implements IUsuarioDAO {
             throw new PersistenciaException("Error: No se pudo obtener el tipo de usuario.", ex);
         }
         return tipo_usuario;
+    }
+
+    @Override
+    public String obtenerNombreUsuario(int idUsuario) throws PersistenciaException {
+        String comandoSQL = "SELECT nombre FROM usuarios WHERE id_usuario = ?;";
+
+        try (Connection con = conexion.crearConexion(); PreparedStatement ps = con.prepareStatement(comandoSQL)) {
+
+            ps.setInt(1, idUsuario);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                return rs.getString("nombre");
+            } else {
+                throw new PersistenciaException("Usuario no encontrado con ID: " + idUsuario);
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+            throw new PersistenciaException("Error al obtener el nombre del usuario", ex);
+        }
     }
 
 }

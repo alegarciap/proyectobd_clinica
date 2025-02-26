@@ -10,7 +10,7 @@ import java.sql.SQLException;
 
 /**
  *
- * @author alega
+ * @author Abraham Coronel
  */
 public interface IMedicoDAO {
     
@@ -19,6 +19,7 @@ public interface IMedicoDAO {
     public void desactivarMedico(Medico medico) throws SQLException, PersistenciaException;
     
     public void activarMedico(Medico medico) throws SQLException, PersistenciaException;;
+   
     
     
 }

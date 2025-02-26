@@ -19,7 +19,7 @@ public interface IUsuarioDAO {
     
     public String obtenerTipoUsuario(int id_usuario) throws PersistenciaException;
     
-    
+    public String obtenerNombreUsuario(int idUsuario) throws PersistenciaException;
     
     
 }

@@ -18,7 +18,7 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author alega
+ * @author Abraham Coronel
  */
 public class MedicoDAO implements IMedicoDAO {
     
