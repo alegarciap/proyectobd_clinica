@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 
 /**
  *
- * @author alega
+ * @author Abraham Coronel Bringas
  */
 public class AuditoriaDTO {
     

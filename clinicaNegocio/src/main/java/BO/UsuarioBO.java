@@ -61,7 +61,7 @@ public class UsuarioBO {
         }
     }
 
-    public String obtenerNombreUsuario(int idUsuario) throws NegocioException {
+    public String obtenerNombreUsuario(int idUsuario) throws NegocioException, PersistenciaException {
         try {
             if (idUsuario <= 0) {
                 throw new NegocioException("ID de usuario inválido");
