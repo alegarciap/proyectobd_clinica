@@ -4,10 +4,14 @@
  */
 package GUI;
 
+import BO.MedicoBO;
+import Configuracion.DependencyInyector;
 import DAO.MedicoDAO;
+import DTO.MedicoDTO;
 import conexion.Conexion;
 import conexion.IConexion;
 import entidades.Medico;
+import excepciones.NegocioException;
 import excepciones.PersistenciaException;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
@@ -18,52 +22,50 @@ import javax.swing.JOptionPane;
  */
 public class EstadoMedico extends javax.swing.JFrame {
 
-    private MedicoDAO medicoDAO;
-    private Medico medico;
+    private MedicoBO medicoBO;
+    private MedicoDTO medicoDTO;
 
-    // Constructor que recibe el objeto Medico
     public EstadoMedico(int id_medico) {
         initComponents();
-        IConexion conexion = new Conexion();
-        medicoDAO = new MedicoDAO(conexion);
+        medicoBO = DependencyInyector.crearMedicoBO();
         try {
-            medico = medicoDAO.obtenerMedico(id_medico); // Obtener el médico usando el id
-        } catch (SQLException | PersistenciaException ex) {
+            medicoDTO = medicoBO.obtenerMedico(id_medico);
+        } catch (NegocioException ex) {
             JOptionPane.showMessageDialog(this, "Error al obtener el médico: " + ex.getMessage());
         }
     }
 
-    // Método para desactivar el médico
+    // Método para desactivar el médico usando el BO
     private void desactivarMedico() {
         try {
-            medicoDAO.desactivarMedico(medico);
+            medicoBO.desactivarMedico(medicoDTO);
             JOptionPane.showMessageDialog(this, "Médico desactivado exitosamente.");
-            btnActivo.setEnabled(true); // Habilitamos el botón de activar
-            btnInactivo.setEnabled(false); // Deshabilitamos el botón de inactivo
-        } catch (SQLException | PersistenciaException ex) {
+            btnActivo.setEnabled(true);  // Se habilita el botón de activar
+            btnInactivo.setEnabled(false); // Se deshabilita el botón de desactivar
+        } catch (PersistenciaException | NegocioException | SQLException ex) {
             JOptionPane.showMessageDialog(this, "Error al desactivar el médico: " + ex.getMessage());
         }
     }
 
-    // Método para activar el médico
+    // Método para activar el médico usando el BO
     private void activarMedico() {
         try {
-            medicoDAO.activarMedico(medico);
+            medicoBO.activarMedico(medicoDTO);
             JOptionPane.showMessageDialog(this, "Médico activado exitosamente.");
-            btnActivo.setEnabled(false); // Deshabilitamos el botón de activo
-            btnInactivo.setEnabled(true); // Habilitamos el botón de inactivo
-        } catch (SQLException | PersistenciaException ex) {
+            btnActivo.setEnabled(false);  // Se deshabilita el botón de activar
+            btnInactivo.setEnabled(true); // Se habilita el botón de desactivar
+        } catch (PersistenciaException | NegocioException | SQLException ex) {
             JOptionPane.showMessageDialog(this, "Error al activar el médico: " + ex.getMessage());
         }
     }
-    
+
     private void regresar() {
         // Cerrar la ventana actual
         this.setVisible(false);
 
         // Crear la instancia de la nueva ventana
-        MenuMedico menumedico = new MenuMedico(); 
-        menumedico.setVisible(true); 
+        MenuMedico menumedico = new MenuMedico();
+        menumedico.setVisible(true);
     }
 
     /**

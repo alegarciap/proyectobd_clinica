@@ -5,9 +5,8 @@
 package GUI;
 
 import BO.MedicoBO;
+import Configuracion.DependencyInyector;
 import DTO.MedicoDTO;
-import conexion.Conexion;
-import conexion.IConexion;
 import excepciones.NegocioException;
 import javax.swing.JOptionPane;
 
@@ -21,8 +20,7 @@ public class PerfilMedico extends javax.swing.JFrame {
 
     public PerfilMedico(int id_usuario) {
         initComponents();
-        IConexion conexion = new Conexion();
-        medicoBO = new MedicoBO(conexion);
+        medicoBO = DependencyInyector.crearMedicoBO();
         cargarDatosMedico(id_usuario);
     }
 
@@ -34,7 +32,9 @@ public class PerfilMedico extends javax.swing.JFrame {
         try {
             MedicoDTO medicoDTO = medicoBO.obtenerMedico(id_usuario);
             if (medicoDTO != null) {
-                jTextField1.setText(medicoDTO.getNombre() + " " + medicoDTO.getApellido_paterno() + " " + medicoDTO.getApellido_materno());
+                jTextField1.setText(medicoDTO.getNombre() + " "
+                        + medicoDTO.getApellido_paterno() + " "
+                        + medicoDTO.getApellido_materno());
                 jTextField2.setText(medicoDTO.getEspecialidad());
                 jTextField3.setText(medicoDTO.getCedula());
             } else {
@@ -168,8 +168,7 @@ public class PerfilMedico extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        // Suponiendo que tienes un ID de médico para probar
-        int idUsuario = 1; // Cambia esto por un ID válido
+        int idUsuario = 1; 
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new PerfilMedico(idUsuario).setVisible(true);

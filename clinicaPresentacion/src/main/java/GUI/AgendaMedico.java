@@ -4,26 +4,36 @@
  */
 package GUI;
 
+import BO.CitaBO;
+import BO.MedicoBO;
+import Configuracion.DependencyInyector;
+import DTO.CitaDTO;
+import excepciones.NegocioException;
+import excepciones.PersistenciaException;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Abraham Coronel Bringas
  */
 public class AgendaMedico extends javax.swing.JFrame {
 
-    /**
-     * Creates new form AgendaMedico
-     */
+    private int idMedico = 1;
+    private CitaBO citaBO; 
+
     public AgendaMedico() {
         initComponents();
+        citaBO = DependencyInyector.crearCitaBO();
     }
-    
-    private void regresar() {
-        // Cerrar la ventana actual
-        this.setVisible(false);
 
-        // Crear la instancia de la nueva ventana
-        MenuMedico menumedico = new MenuMedico(); 
-        menumedico.setVisible(true); 
+    private void regresar() {
+        this.setVisible(false);
+        MenuMedico menumedico = new MenuMedico();
+        menumedico.setVisible(true);
     }
 
     /**
@@ -37,8 +47,10 @@ public class AgendaMedico extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        list1 = new java.awt.List();
         btnRegresar = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jList1 = new javax.swing.JList<>();
+        btnBuscar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setSize(new java.awt.Dimension(1280, 720));
@@ -48,8 +60,6 @@ public class AgendaMedico extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel2.setText("Agenda");
-
-        list1.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
 
         btnRegresar.setBackground(new java.awt.Color(255, 0, 0));
         btnRegresar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -61,6 +71,26 @@ public class AgendaMedico extends javax.swing.JFrame {
             }
         });
 
+        jList1.setBackground(new java.awt.Color(255, 153, 153));
+        jList1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jList1.setForeground(new java.awt.Color(255, 255, 255));
+        jList1.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane1.setViewportView(jList1);
+
+        btnBuscar.setBackground(new java.awt.Color(255, 0, 0));
+        btnBuscar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnBuscar.setForeground(new java.awt.Color(255, 255, 255));
+        btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -68,17 +98,20 @@ public class AgendaMedico extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(53, 53, 53)
-                        .addComponent(btnRegresar)
-                        .addGap(170, 170, 170)
-                        .addComponent(list1, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(403, 403, 403)
                         .addComponent(jLabel2))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(355, 355, 355)
-                        .addComponent(jLabel1)))
-                .addContainerGap(364, Short.MAX_VALUE))
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(53, 53, 53)
+                        .addComponent(btnRegresar)
+                        .addGap(48, 48, 48)
+                        .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(324, 324, 324)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(363, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -86,14 +119,17 @@ public class AgendaMedico extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnRegresar))
-                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel2)
-                        .addGap(25, 25, 25)
-                        .addComponent(list1, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 27, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnRegresar)
+                            .addComponent(btnBuscar))))
                 .addGap(53, 53, 53))
         );
 
@@ -103,6 +139,26 @@ public class AgendaMedico extends javax.swing.JFrame {
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
         regresar();
     }//GEN-LAST:event_btnRegresarActionPerformed
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        List<CitaDTO> citas = null;
+        try {
+            citas = citaBO.obtenerCitasMedico(idMedico);
+        } catch (PersistenciaException ex) {
+            Logger.getLogger(AgendaMedico.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NegocioException ex) {
+            Logger.getLogger(AgendaMedico.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        DefaultListModel<String> model = new DefaultListModel<>();
+        for (CitaDTO cita : citas) {
+            model.addElement(cita.toString());
+        }
+        jList1.setModel(model);
+        if (citas.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "No hay citas para este médico.");
+        }
+    }//GEN-LAST:event_btnBuscarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -140,9 +196,11 @@ public class AgendaMedico extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnRegresar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private java.awt.List list1;
+    private javax.swing.JList<String> jList1;
+    private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }

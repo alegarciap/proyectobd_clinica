@@ -5,8 +5,11 @@
 package GUI;
 
 import BO.UsuarioBO;
-import conexion.Conexion;
+import Configuracion.DependencyInyector;
 import excepciones.NegocioException;
+import excepciones.PersistenciaException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -25,12 +28,11 @@ public class MenuMedico extends javax.swing.JFrame {
     }
 
     public MenuMedico() {
-        this.usuarioBO = new UsuarioBO(new Conexion()); // Asegúrate de que 'Conexion' implemente 'IConexion'
-        this.idUsuario = 1; // O cualquier ID de usuario predeterminado
+        this.usuarioBO = DependencyInyector.crearUsuarioBO();
+        this.idUsuario = 1; 
         initComponents();
         cargarNombreUsuario();
     }
-    
 
     private void cargarNombreUsuario() {
         try {
@@ -38,6 +40,8 @@ public class MenuMedico extends javax.swing.JFrame {
             jTextField1.setText(nombreUsuario);
         } catch (NegocioException e) {
             jTextField1.setText("Error al cargar nombre");
+        } catch (PersistenciaException ex) {
+            Logger.getLogger(MenuMedico.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -172,7 +176,7 @@ public class MenuMedico extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnActualizarEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarEstadoActionPerformed
-        int idMedico = 5;   
+        int idMedico = 5;
         EstadoMedico ventanaActualizarEstado = new EstadoMedico(idMedico);
         ventanaActualizarEstado.setVisible(true);
         this.setVisible(false);

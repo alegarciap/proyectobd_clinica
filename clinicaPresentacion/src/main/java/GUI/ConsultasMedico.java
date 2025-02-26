@@ -4,26 +4,66 @@
  */
 package GUI;
 
+import BO.ConsultaBO;
+import Configuracion.DependencyInyector;
+import DTO.ConsultaDTO;
+import excepciones.NegocioException;
+import excepciones.PersistenciaException;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
+
 /**
  *
- * @author PC Gamer
+ * @author Abraham Coronel
  */
 public class ConsultasMedico extends javax.swing.JFrame {
 
-    /**
-     * Creates new form ConsultasMedico
-     */
+    private int idMedico = 1;
+
     public ConsultasMedico() {
         initComponents();
     }
     
+    // Método para regresar al menú
     private void regresar() {
-        // Cerrar la ventana actual
         this.setVisible(false);
-
-        // Crear la instancia de la nueva ventana
-        MenuMedico menumedico = new MenuMedico(); 
-        menumedico.setVisible(true); 
+        MenuMedico menumedico = new MenuMedico();
+        menumedico.setVisible(true);
+    }
+    
+    // Método que busca y muestra en el JList el historial de consultas de un médico para un paciente
+    private void buscarConsultas() throws NegocioException {
+        try {
+            // Se asume que jTextField1 contiene el ID del paciente (cambia el label si es necesario)
+            int idPaciente = Integer.parseInt(jTextField1.getText().trim());
+            
+            // Se crea la instancia de ConsultaBO mediante DependencyInyector
+            ConsultaBO consultaBO = DependencyInyector.crearConsultaBO();
+            
+            // Se invoca el método obtenerHistorialConsultasMedicos
+            List<ConsultaDTO> consultas = consultaBO.obtenerHistorialConsultasMedicos(idMedico, idPaciente);
+            
+            // Se actualiza el modelo del JList con los resultados
+            DefaultListModel<String> model = new DefaultListModel<>();
+            for (ConsultaDTO consulta : consultas) {
+                // Se utiliza el método toString() de ConsultaDTO o formatea como requieras
+                model.addElement(consulta.toString());
+            }
+            jList1.setModel(model);
+            
+            if (consultas.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "No se encontraron consultas para este paciente.");
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Ingrese un ID de paciente válido.");
+        } catch (NegocioException ex) {
+            JOptionPane.showMessageDialog(this, "Error al obtener las consultas: " + ex.getMessage());
+        } catch (PersistenciaException ex) {
+            Logger.getLogger(ConsultasMedico.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -35,11 +75,35 @@ public class ConsultasMedico extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        btnRegresar1 = new javax.swing.JButton();
+        btnRegresar2 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
-        list1 = new java.awt.List();
-        btnRegresar = new javax.swing.JButton();
+        btnBuscar = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jList1 = new javax.swing.JList<>();
+        btnRegresar3 = new javax.swing.JButton();
+
+        btnRegresar1.setBackground(new java.awt.Color(255, 0, 0));
+        btnRegresar1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnRegresar1.setForeground(new java.awt.Color(255, 255, 255));
+        btnRegresar1.setText("Regresar");
+        btnRegresar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegresar1ActionPerformed(evt);
+            }
+        });
+
+        btnRegresar2.setBackground(new java.awt.Color(255, 0, 0));
+        btnRegresar2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnRegresar2.setForeground(new java.awt.Color(255, 255, 255));
+        btnRegresar2.setText("Regresar");
+        btnRegresar2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegresar2ActionPerformed(evt);
+            }
+        });
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setSize(new java.awt.Dimension(1280, 720));
@@ -50,13 +114,33 @@ public class ConsultasMedico extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel2.setText("Nombre paciente:");
 
-        btnRegresar.setBackground(new java.awt.Color(255, 0, 0));
-        btnRegresar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnRegresar.setForeground(new java.awt.Color(255, 255, 255));
-        btnRegresar.setText("Regresar");
-        btnRegresar.addActionListener(new java.awt.event.ActionListener() {
+        btnBuscar.setBackground(new java.awt.Color(255, 0, 0));
+        btnBuscar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnBuscar.setForeground(new java.awt.Color(255, 255, 255));
+        btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRegresarActionPerformed(evt);
+                btnBuscarActionPerformed(evt);
+            }
+        });
+
+        jList1.setBackground(new java.awt.Color(255, 153, 153));
+        jList1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jList1.setForeground(new java.awt.Color(255, 255, 255));
+        jList1.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane1.setViewportView(jList1);
+
+        btnRegresar3.setBackground(new java.awt.Color(255, 0, 0));
+        btnRegresar3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnRegresar3.setForeground(new java.awt.Color(255, 255, 255));
+        btnRegresar3.setText("Regresar");
+        btnRegresar3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegresar3ActionPerformed(evt);
             }
         });
 
@@ -70,41 +154,64 @@ public class ConsultasMedico extends javax.swing.JFrame {
                         .addGap(353, 353, 353)
                         .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(51, 51, 51)
-                        .addComponent(btnRegresar)
-                        .addGap(166, 166, 166)
-                        .addComponent(list1, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(363, 363, 363)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(457, Short.MAX_VALUE))
+                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(321, 321, 321)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(51, 51, 51)
+                        .addComponent(btnRegresar3)
+                        .addGap(44, 44, 44)
+                        .addComponent(btnBuscar)))
+                .addContainerGap(453, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel2)
-                .addGap(18, 18, 18)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(23, 23, 23)
-                .addComponent(list1, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(45, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnRegresar)
-                .addGap(33, 33, 33))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel2)
+                        .addGap(18, 18, 18)
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(64, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnRegresar3)
+                            .addComponent(btnBuscar))
+                        .addGap(33, 33, 33))))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        try {
+            buscarConsultas();
+        } catch (NegocioException ex) {
+            Logger.getLogger(ConsultasMedico.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void btnRegresar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresar1ActionPerformed
         regresar();
-    }//GEN-LAST:event_btnRegresarActionPerformed
+    }//GEN-LAST:event_btnRegresar1ActionPerformed
+
+    private void btnRegresar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresar2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnRegresar2ActionPerformed
+
+    private void btnRegresar3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresar3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnRegresar3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -142,10 +249,14 @@ public class ConsultasMedico extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnRegresar;
+    private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton btnRegresar1;
+    private javax.swing.JButton btnRegresar2;
+    private javax.swing.JButton btnRegresar3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JList<String> jList1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextField1;
-    private java.awt.List list1;
     // End of variables declaration//GEN-END:variables
 }

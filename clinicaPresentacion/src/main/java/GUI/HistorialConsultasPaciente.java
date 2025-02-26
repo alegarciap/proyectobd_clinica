@@ -164,7 +164,7 @@ public class HistorialConsultasPaciente extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-        this.regresar();
+        regresar();
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     /**
