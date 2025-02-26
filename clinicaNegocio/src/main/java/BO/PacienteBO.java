@@ -16,18 +16,34 @@ import java.util.regex.Pattern;
 import mapper.Mapper;
 
 /**
- *
- * @author alega
+ * La clase PacienteBO es responsable de la lógica de negocio relacionada con los pacientes.
+ * Proporciona métodos para registrar y actualizar pacientes en el sistema.
+ * 
+ * Utiliza la interfaz IPacienteDAO para interactuar con la capa de persistencia.
+ * 
+ * @autor alega
  */
 public class PacienteBO {
     
     private static final Logger logger = Logger.getLogger(PacienteBO.class.getName());
     private final IPacienteDAO pacienteDAO;
     
+    /**
+     * Constructor de la clase PacienteBO.
+     * 
+     * @param conexion La conexión a la base de datos.
+     */
     public PacienteBO(IConexion conexion) {
         this.pacienteDAO = new PacienteDAO(conexion);
     }
     
+    /**
+     * Registra un nuevo paciente en el sistema.
+     * 
+     * @param pacienteDTO El objeto PacienteDTO que contiene la información del paciente a registrar.
+     * @throws PersistenciaException Si ocurre un error en la capa de persistencia al intentar registrar el paciente.
+     * @throws NegocioException Si ocurre un error de negocio durante el registro del paciente, como datos inválidos.
+     */
     public void registrarPaciente(PacienteDTO pacienteDTO) throws PersistenciaException, NegocioException {
         // validaciones necesarias
         if (pacienteDTO.getNombre() == null || pacienteDTO.getNombre().trim().isEmpty()) {
@@ -43,6 +59,7 @@ public class PacienteBO {
         if (pacienteDTO.getDireccion() == null || pacienteDTO.getDireccion().trim().isEmpty()) {
             throw new NegocioException("La dirección del paciente debe ser registrada");
         }
+        
         // validar telefono
         Pattern regexTelefono = Pattern.compile("^\\d{10}$");
         if (pacienteDTO.getTelefono() == null || !regexTelefono.matcher(pacienteDTO.getTelefono().trim()).matches()) {
@@ -74,6 +91,13 @@ public class PacienteBO {
         }
     }
     
+    /**
+     * Actualiza la información de un paciente existente.
+     * 
+     * @param pacienteDTO El objeto PacienteDTO que contiene la información actualizada del paciente.
+     * @throws PersistenciaException Si ocurre un error en la capa de persistencia al intentar actualizar el paciente.
+     * @throws NegocioException Si ocurre un error de negocio durante la actualización del paciente.
+     */
     public void actualizarPaciente(PacienteDTO pacienteDTO) throws PersistenciaException, NegocioException {
         // validaciones necesarias
         
@@ -84,5 +108,4 @@ public class PacienteBO {
             throw new NegocioException("Ocurrió un error al actualizar el paciente.", ex);
         }
     }
-    
 }

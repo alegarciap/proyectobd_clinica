@@ -19,18 +19,34 @@ import java.util.logging.Logger;
 import mapper.Mapper;
 
 /**
- *
- * @author alega
+ * La clase ConsultaBO es responsable de la lógica de negocio relacionada con las consultas médicas.
+ * Proporciona métodos para realizar consultas y obtener historiales de consultas para pacientes y médicos.
+ * 
+ * Utiliza la interfaz IConsultaDAO para interactuar con la capa de persistencia.
+ * 
+ * @autor alega
  */
 public class ConsultaBO {
     
     private static final Logger logger = Logger.getLogger(MedicoBO.class.getName());
     private final IConsultaDAO consultaDAO;
 
+    /**
+     * Constructor de la clase ConsultaBO.
+     * 
+     * @param conexion La conexión a la base de datos.
+     */
     public ConsultaBO(IConexion conexion) {
         this.consultaDAO = new ConsultaDAO(conexion);
     }
     
+    /**
+     * Realiza una consulta médica.
+     * 
+     * @param consultaDTO El objeto ConsultaDTO que contiene los datos de la consulta a realizar.
+     * @throws PersistenciaException Si ocurre un error en la capa de persistencia al intentar registrar la consulta.
+     * @throws NegocioException Si ocurre un error de negocio al intentar realizar la consulta.
+     */
     public void realizarConsulta(ConsultaDTO consultaDTO) throws PersistenciaException, NegocioException {
         // validaciones necesarias
         
@@ -40,9 +56,19 @@ public class ConsultaBO {
             logger.log(Level.SEVERE, "Error al registrar consulta.", ex);
             throw new NegocioException("Ocurrió un error al registrar la consulta.", ex);
         }
-        
     }
     
+    /**
+     * Obtiene el historial de consultas de un paciente en un rango de fechas y especialidad.
+     * 
+     * @param id_paciente El ID del paciente cuyas consultas se desean obtener.
+     * @param especialidad La especialidad de las consultas que se desean filtrar.
+     * @param fecha_inicio La fecha de inicio del rango de fechas.
+     * @param fecha_fin La fecha de fin del rango de fechas.
+     * @return Una lista de objetos ConsultaDTO que representan las consultas del paciente.
+     * @throws PersistenciaException Si ocurre un error en la capa de persistencia al obtener el historial de consultas.
+     * @throws NegocioException Si el ID del paciente es inválido.
+     */
     public List<ConsultaDTO> obtenerHistorialConsultas(int id_paciente, String especialidad, Timestamp fecha_inicio, Timestamp fecha_fin) throws PersistenciaException, NegocioException {
         if (id_paciente <= 0) {
             throw new NegocioException("ID de paciente inválido.");
@@ -63,6 +89,15 @@ public class ConsultaBO {
         }
     }
 
+    /**
+     * Obtiene el historial de consultas realizadas por un médico a un paciente específico.
+     * 
+     * @param id_medico El ID del médico cuyas consultas se desean obtener.
+     * @param id_paciente El ID del paciente cuyas consultas se desean obtener.
+     * @return Una lista de objetos ConsultaDTO que representan las consultas del paciente realizadas por el médico.
+     * @throws PersistenciaException Si ocurre un error en la capa de persistencia al obtener el historial de consultas.
+     * @throws NegocioException Si el ID del médico o el ID del paciente son inválidos.
+     */
     public List<ConsultaDTO> obtenerHistorialConsultasMedicos(int id_medico, int id_paciente) throws PersistenciaException, NegocioException {
         if (id_medico <= 0) {
             throw new NegocioException("ID médico inválido.");
@@ -85,7 +120,6 @@ public class ConsultaBO {
             logger.log(Level.SEVERE, "Error al obtener las consultas.", ex);
             throw new NegocioException("Hubo un error al obtener las consultas.", ex);
         }
-        
     }
     
 }

@@ -18,7 +18,11 @@ import java.util.logging.Logger;
 import mapper.Mapper;
 
 /**
- *
+ * La clase CitaBO es responsable de la lógica de negocio relacionada con las citas médicas.
+ * Proporciona métodos para agendar, cancelar y obtener citas para médicos y pacientes.
+ * 
+ * Utiliza la interfaz ICitaDAO para interactuar con la capa de persistencia.
+ * 
  * @author alega
  */
 public class CitaBO {
@@ -26,10 +30,22 @@ public class CitaBO {
     private static final Logger logger = Logger.getLogger(CitaBO.class.getName());
     private final ICitaDAO citaDAO;
     
+    /**
+     * Constructor de la clase CitaBO.
+     * 
+     * @param conexion La conexión a la base de datos.
+     */
     public CitaBO(IConexion conexion) {
         this.citaDAO = new CitaDAO(conexion);
     }
     
+    /**
+     * Agenda una nueva cita médica.
+     * 
+     * @param citaDTO El objeto CitaDTO que contiene los datos de la cita a agendar.
+     * @throws NegocioException Si la cita es nula o si ocurre un error de negocio.
+     * @throws PersistenciaException Si ocurre un error en la capa de persistencia al intentar agendar la cita.
+     */
     public void agendarCita(CitaDTO citaDTO) throws NegocioException, PersistenciaException {
         if (citaDTO == null) {
             throw new NegocioException("La cita no debe ser nula.");
@@ -46,6 +62,13 @@ public class CitaBO {
         }
     }
     
+    /**
+     * Agenda una cita médica de emergencia.
+     * 
+     * @param citaDTO El objeto CitaDTO que contiene los datos de la cita a agendar.
+     * @throws NegocioException Si la cita es nula o si ocurre un error de negocio.
+     * @throws PersistenciaException Si ocurre un error en la capa de persistencia al intentar agendar la cita de emergencia.
+     */
     public void agendarCitaEmergencia(CitaDTO citaDTO) throws NegocioException, PersistenciaException {
         if (citaDTO == null) {
             throw new NegocioException("La cita no debe ser nula.");
@@ -62,6 +85,13 @@ public class CitaBO {
         }
     }
     
+    /**
+     * Cancela una cita médica.
+     * 
+     * @param citaDTO El objeto CitaDTO que contiene los datos de la cita a cancelar.
+     * @throws NegocioException Si la cita es nula o si ocurre un error de negocio.
+     * @throws PersistenciaException Si ocurre un error en la capa de persistencia al intentar cancelar la cita.
+     */
     public void cancelarCita(CitaDTO citaDTO) throws PersistenciaException, NegocioException {
         if (citaDTO == null) {
             throw new NegocioException("La cita a cancelar no puede ser nula.");
@@ -77,6 +107,14 @@ public class CitaBO {
         }
     }
     
+    /**
+     * Obtiene una lista de citas asociadas a un médico.
+     * 
+     * @param id_medico El ID del médico cuyas citas se desean obtener.
+     * @return Una lista de objetos CitaDTO que representan las citas del médico.
+     * @throws PersistenciaException Si ocurre un error en la capa de persistencia al obtener las citas.
+     * @throws NegocioException Si el ID del médico es inválido.
+     */
     public List<CitaDTO> obtenerCitasMedico(int id_medico) throws PersistenciaException, NegocioException {
         if (id_medico <= 0) {
             throw new NegocioException("ID de médico inválido.");
@@ -95,6 +133,14 @@ public class CitaBO {
         }
     }
     
+    /**
+     * Obtiene una lista de citas asociadas a un paciente.
+     * 
+     * @param id_paciente El ID del paciente cuyas citas se desean obtener.
+     * @return Una lista de objetos CitaDTO que representan las citas del paciente.
+     * @throws PersistenciaException Si ocurre un error en la capa de persistencia al obtener las citas.
+     * @throws NegocioException Si el ID del paciente es inválido.
+     */
     public List<CitaDTO> obtenerCitasPaciente(int id_paciente) throws PersistenciaException, NegocioException {
         if (id_paciente <= 0) {
             throw new NegocioException("ID de paciente inválido.");

@@ -17,18 +17,35 @@ import java.util.logging.Logger;
 import mapper.Mapper;
 
 /**
- *
- * @author Abraham Coronel
+ * La clase MedicoBO es responsable de la lógica de negocio relacionada con los médicos.
+ * Proporciona métodos para activar y desactivar médicos, así como para obtener información sobre ellos.
+ * 
+ * Utiliza la interfaz IMedicoDAO para interactuar con la capa de persistencia.
+ * 
+ * @autor Abraham Coronel
  */
 public class MedicoBO {
 
     private static final Logger logger = Logger.getLogger(MedicoBO.class.getName());
     private final IMedicoDAO medicoDAO;
 
+    /**
+     * Constructor de la clase MedicoBO.
+     * 
+     * @param conexion La conexión a la base de datos.
+     */
     public MedicoBO(IConexion conexion) {
         this.medicoDAO = new MedicoDAO(conexion);
     }
 
+    /**
+     * Desactiva un médico dado.
+     * 
+     * @param medicoDTO El objeto MedicoDTO que representa al médico a desactivar.
+     * @throws PersistenciaException Si ocurre un error en la capa de persistencia al intentar desactivar el médico.
+     * @throws NegocioException Si ocurre un error de negocio al intentar desactivar el médico.
+     * @throws SQLException Si ocurre un error en la ejecución de la consulta SQL.
+     */
     public void desactivarMedico(MedicoDTO medicoDTO) throws PersistenciaException, NegocioException, SQLException {
         if (medicoDTO == null) {
             throw new PersistenciaException("El médico a dar de baja no puede ser nulo.");
@@ -43,9 +60,17 @@ public class MedicoBO {
         }
     }
 
+    /**
+     * Activa un médico dado.
+     * 
+     * @param medicoDTO El objeto MedicoDTO que representa al médico a activar.
+     * @throws PersistenciaException Si ocurre un error en la capa de persistencia al intentar activar el médico.
+     * @throws NegocioException Si ocurre un error de negocio al intentar activar el médico.
+     * @throws SQLException Si ocurre un error en la ejecución de la consulta SQL.
+     */
     public void activarMedico(MedicoDTO medicoDTO) throws PersistenciaException, NegocioException, SQLException {
         if (medicoDTO == null) {
-            throw new PersistenciaException("El médico a dar de baja no puede ser nulo.");
+            throw new PersistenciaException("El médico a dar de alta no puede ser nulo.");
         }
 
         // validaciones necesarias
@@ -57,6 +82,13 @@ public class MedicoBO {
         }
     }
 
+    /**
+     * Obtiene un médico por su ID de usuario.
+     * 
+     * @param idUsuario El ID del usuario que representa al médico a obtener.
+     * @return Un objeto MedicoDTO que representa al médico obtenido.
+     * @throws NegocioException Si el ID del médico no es válido o no se encuentra el médico.
+     */
     public MedicoDTO obtenerMedico(int idUsuario) throws NegocioException {
         if (idUsuario <= 0) {
             throw new NegocioException("El ID del médico no es válido.");
@@ -76,5 +108,4 @@ public class MedicoBO {
             throw new NegocioException("Error al obtener médico: " + ex.getMessage(), ex);
         }
     }
-
 }
