@@ -17,7 +17,7 @@ import entidades.Usuario;
 
 /**
  *
- * @author alega
+ * @author Abraham Coronel
  */
 public class Mapper {
     

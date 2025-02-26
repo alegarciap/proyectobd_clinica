@@ -61,4 +61,17 @@ public class UsuarioBO {
         }
     }
 
+    public String obtenerNombreUsuario(int idUsuario) throws NegocioException {
+        try {
+            if (idUsuario <= 0) {
+                throw new NegocioException("ID de usuario inválido");
+            }
+
+            return usuarioDAO.obtenerNombreUsuario(idUsuario);
+        } catch (PersistenciaException ex) {
+            logger.log(Level.SEVERE, "Error al obtener el nombre del usuario", ex);
+            throw new NegocioException("No se pudo obtener el nombre del usuario", ex);
+        }
+    }
+
 }
