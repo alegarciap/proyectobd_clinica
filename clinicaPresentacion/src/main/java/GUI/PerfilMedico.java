@@ -17,11 +17,17 @@ import javax.swing.JOptionPane;
 public class PerfilMedico extends javax.swing.JFrame {
 
     private MedicoBO medicoBO;
+    private int idUsuario;
 
     public PerfilMedico(int id_usuario) {
         initComponents();
         medicoBO = DependencyInyector.crearMedicoBO();
-        cargarDatosMedico(id_usuario);
+        if (medicoBO == null) {
+            JOptionPane.showMessageDialog(this, "Error: MedicoBO no inicializado.");
+            return; 
+        }
+        this.idUsuario = id_usuario;
+        cargarDatosMedico(idUsuario); 
     }
 
     public PerfilMedico() {
@@ -30,26 +36,30 @@ public class PerfilMedico extends javax.swing.JFrame {
 
     private void cargarDatosMedico(int id_usuario) {
         try {
+            System.out.println("Cargando datos para ID: " + id_usuario);
             MedicoDTO medicoDTO = medicoBO.obtenerMedico(id_usuario);
+            System.out.println("MedicoDTO obtenido: " + medicoDTO);
+
             if (medicoDTO != null) {
-                jTextField1.setText(medicoDTO.getNombre() + " "
-                        + medicoDTO.getApellido_paterno() + " "
-                        + medicoDTO.getApellido_materno());
+                String nombreCompleto = medicoDTO.getNombre() + " " + medicoDTO.getApellido_paterno() + " " + medicoDTO.getApellido_materno();
+                System.out.println("Nombre completo: " + nombreCompleto);
+                jTextField1.setText(nombreCompleto);
                 jTextField2.setText(medicoDTO.getEspecialidad());
                 jTextField3.setText(medicoDTO.getCedula());
             } else {
+                System.out.println("Médico no encontrado para ID: " + id_usuario);
                 JOptionPane.showMessageDialog(this, "Médico no encontrado");
             }
         } catch (NegocioException ex) {
+            System.err.println("Error al obtener médico: " + ex.getMessage());
+            ex.printStackTrace();
             JOptionPane.showMessageDialog(this, "Error al obtener datos del médico: " + ex.getMessage());
         }
     }
 
     private void regresar() {
-        // Cerrar la ventana actual
         this.setVisible(false);
 
-        // Crear la instancia de la nueva ventana
         MenuMedico menumedico = new MenuMedico();
         menumedico.setVisible(true);
     }
@@ -71,6 +81,7 @@ public class PerfilMedico extends javax.swing.JFrame {
         jTextField3 = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setSize(new java.awt.Dimension(1280, 720));
@@ -108,15 +119,22 @@ public class PerfilMedico extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         jLabel5.setText("Clinica BD");
 
+        jButton2.setBackground(new java.awt.Color(255, 0, 51));
+        jButton2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jButton2.setForeground(new java.awt.Color(255, 255, 255));
+        jButton2.setText("Cargar datos");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(62, 62, 62)
-                        .addComponent(jButton1))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(369, 369, 369)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -128,7 +146,12 @@ public class PerfilMedico extends javax.swing.JFrame {
                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(353, 353, 353)
-                        .addComponent(jLabel5)))
+                        .addComponent(jLabel5))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(51, 51, 51)
+                        .addComponent(jButton1)
+                        .addGap(37, 37, 37)
+                        .addComponent(jButton2)))
                 .addContainerGap(357, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -148,9 +171,11 @@ public class PerfilMedico extends javax.swing.JFrame {
                 .addComponent(jLabel3)
                 .addGap(18, 18, 18)
                 .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(24, 24, 24)
-                .addComponent(jButton1)
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton2)
+                    .addComponent(jButton1))
+                .addGap(31, 31, 31))
         );
 
         pack();
@@ -164,11 +189,15 @@ public class PerfilMedico extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        cargarDatosMedico(idUsuario);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        int idUsuario = 1; 
+        int idUsuario = 1;
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new PerfilMedico(idUsuario).setVisible(true);
@@ -178,6 +207,7 @@ public class PerfilMedico extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
